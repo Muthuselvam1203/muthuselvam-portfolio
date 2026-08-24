@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en" style="scroll-behavior: smooth;">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Muthuselvam's Blog</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <script src="tilt.js"></script>
+</head>
+
+<body>
+    <canvas id="particles"></canvas>
+
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="logo">MK</div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="nav-links">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#projects" class="nav-link">Projects</a>
+                <a href="#skills" class="nav-link">Skills</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+            <div class="nav-overlay"></div>
+        </div>
+    </nav>
+
+    <section id="home" class="section hero-section">
+        <div class="hero-container">
+            <div class="hero-image-wrapper">
+                <img src="hero-img.png" alt="Muthuselvam K" class="hero-img">
+            </div>
+            <div class="hero-content">
+                <h1 class="hero-title">Hello, I'm <br><span class="highlight-name">MUTHUSELVAM K</span></h1>
+                <p class="hero-subtitle">
+                    <span id="typewriter"></span>
+                </p>
+                <div class="hero-description">
+                    <p>I build responsive web applications and transform data into meaningful insights using modern technologies and analytical tools</p>
+                </div>
+                <div class="hero-buttons">
+                    <a href="#projects" class="btn btn-primary">View Projects</a>
+                    <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="section about-section scroll-section">
+        <div class="section-content">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-grid">
+                <div class="about-text">
+                    <p>I am a passionate B.Tech Information Technology student with a strong interest in Web Development and Data Analytics. I enjoy building responsive, user-focused web applications while leveraging data to discover meaningful insights and support informed decision-making.
+                       My technical interests include HTML, CSS, JavaScript, React.js, Python, SQL, Excel, Pandas, and Power BI. I continuously strengthen my problem-solving skills by working on practical projects and exploring modern technologies.
+                       I am currently focused on developing industry-ready skills and gaining real-world experience, with the goal of becoming a versatile technology professional who can combine software development, data analysis, and business-focused solutions to create meaningful impact.</p>
+                    <div class="education">
+                        <h3>Education</h3>
+                        <div class="education-item">
+                            <h4>JP COLLEGE OF ENGINEERING</h4>
+                            <p>B.Tech in Information Technology</p>
+                            <p class="period">July 2023 - Jun 2027 | GPA: 7.85/10.0</p>
+                        </div>
+                    </div>
+
+                    <div class="experience-timeline-section education" style="margin-top: 50px;">
+                        <h3>Experience</h3>
+                        <div class="timeline">
+
+    <!-- CADD Expert -->
+    <div class="timeline-item">
+        <span class="timeline-dot"></span>
+
+        <div class="timeline-content">
+            <div class="timeline-header">
+                <h4>CADD Expert</h4>
+                <span class="timeline-date">July 18, 2026 - August 18, 2026</span>
+            </div>
+
+            <span class="role">Data Analyst Intern</span>
+
+            <p class="description">
+                Acquired hands-on experience in collecting, cleaning, and preprocessing
+                raw datasets using Python and SQL to remove duplicates, handle missing
+                values, and ensure data accuracy for analytical processing.
+
+                Learned to perform Exploratory Data Analysis (EDA) to identify key
+                patterns, trends, and correlations within complex data, driving
+                data-informed insights for business decision-making.
+
+                Gained proficiency in creating interactive dashboards and reports using
+                tools like Power BI and Tableau to visually communicate critical metrics
+                and actionable findings to non-technical stakeholders.
+
+                Developed statistical analysis techniques and utilized SQL queries to
+                extract data, write complex joins, and generate structured datasets
+                that support business performance monitoring.
+            </p>
+        </div>
+    </div>
+
+
+    <!-- Vinsup Infotech -->
+    <div class="timeline-item">
+        <span class="timeline-dot"></span>
+
+        <div class="timeline-content">
+            <div class="timeline-header">
+                <h4>Vinsup Infotech</h4>
+                <span class="timeline-date">July 22, 2025 - July 28, 2025</span>
+            </div>
+
+            <span class="role">Android Development Intern</span>
+
+            <p class="description">
+                Gained practical knowledge in designing and developing responsive
+                user interfaces (UI) for Android applications using XML layouts and
+                standard design principles to improve overall user experience.
+
+                Acquired hands-on experience in implementing core Android application
+                architecture, managing activity lifecycles, and handling seamless
+                navigation between different application screens.
+
+                Learned how to integrate application logic using Java/Kotlin, connect
+                front-end user interfaces with dynamic data sources, and manage local
+                storage for smooth app performance.
+
+                Developed functional mobile app modules by utilizing essential tools
+                like Android Studio, debugging runtime errors, and understanding
+                end-to-end mobile app deployment workflows.
+            </p>
+        </div>
+    </div>
+
+
+    <!-- Campus Connection -->
+    <div class="timeline-item">
+        <span class="timeline-dot"></span>
+
+        <div class="timeline-content">
+            <div class="timeline-header">
+                <h4>Campus Connection</h4>
+                <span class="timeline-date">July 7, 2025 - July 18, 2025</span>
+            </div>
+
+            <span class="role">React.js Intern</span>
+
+            <p class="description">
+                Gained practical hands-on experience in modern frontend development
+                using React JS paired with Vite, focusing on building high-performance,
+                responsive single-page user interfaces with fast build times and
+                efficient module bundling.
+
+                Developed a strong foundational understanding of core React concepts,
+                including component-based architecture, state management, props
+                handling, and functional hooks to design dynamic and interactive
+                UI components.
+
+                Acquired exposure to the broader MERN stack ecosystem, learning how
+                modern React applications seamlessly integrate with backend services,
+                RESTful APIs, and databases for full-stack data flow.
+
+                Applied industry-standard development workflows and modern build tools
+                to write modular, maintainable code, debug front-end components, and
+                optimize application routing and user experience.
+            </p>
+        </div>
+    </div>
+
+</div>
+
+    <section id="projects" class="section projects-section scroll-section">
+        <div class="section-content">
+            <h2 class="section-title">Projects</h2>
+            <div class="projects-showcase">
+                <div class="project-item">
+                    <div class="project-content">
+                        <div class="project-header">
+                            <h3>ShopAI - AI-Powered Product Search Platform</h3>
+                            <span class="project-category">Web Platform</span>
+                        </div>
+                        <p class="project-description">An AI-powered product discovery and recommendation platform that searches products from multiple external APIs, analyzes product relevance, price, quality and customer feedback, and provides intelligent recommendations such as Best Overall, Best Budget and Best Premium. The application includes advanced product search, category exploration, AI insights and responsive product cards.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">Node.js</span>
+                            <span class="tech-tag">Express</span>
+                            <span class="tech-tag">REST API</span>
+                        </div>
+                        <div class="project-features">
+                            <div class="feature">Multi-API Product Search</div>
+                            <div class="feature">Intelligent Product Categorization</div>
+                            <div class="feature">AI Insights & Discoveries</div>
+                        </div>
+                        <div class="project-actions">
+                            <a href="https://eduhub-corp.onrender.com/dashboard" class="btn btn-primary">View
+                                Project</a>
+                            <a href="https://github.com/Muthuselvam1203" class="btn btn-secondary">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-item">
+                    <div class="project-content">
+                        <div class="project-header">
+                            <h3>Library & Student Resource System</h3>
+                            <span class="project-category">Mobile Application</span>
+                        </div>
+                        <p class="project-description">A full-stack mobile and web platform designed to streamline academic resource distribution and library operations. Built with Java and Android Studio on the frontend, supported by Firebase and Firestore for scalable backend database management. It includes custom user authentication and Firebase Cloud Messaging (FCM) for real-time alerts. Ideal for educational institutions seeking an end-to-end digital transformation for resource tracking.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Java</span>
+                            <span class="tech-tag">Android Studio</span>
+                            <span class="tech-tag">Firebase</span>
+                            <span class="tech-tag">Authentication</span>
+                            <span class="tech-tag">FCM</span>
+                            <span class="tech-tag">Firestore</span>
+                        </div>
+                        <div class="project-features">
+                            <div class="feature">Book & Resource Tracking</div>
+                            <div class="feature">AI-Powered Assistance</div>
+                            <div class="feature">Real-time Push Notifications</div>
+                        </div>
+                        <div class="project-actions">
+                            <a href="" class="btn btn-primary">View Project</a>
+                            <a href="https://github.com/Muthuselvam1203" class="btn btn-secondary">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-item">
+                    <div class="project-content">
+                        <div class="project-header">
+                            <h3>AI Timetable Management System</h3>
+                            <span class="project-category">Web Platform</span>
+                        </div>
+                        <p class="project-description">A smart personal assistant leveraging Generative AI for
+                            streamlined daily organization. Created a next-generation productivity tool that replaces
+                            traditional database queries with vector similarity search. Utilized LLMs to instantly
+                            analyze and tag content, while implementing a scalable vector store architecture that allows
+                            the system to "understand" and retrieve information based on conceptual similarity,
+                            significantly outperforming standard text-matching algorithms.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">Node.js</span>
+                            <span class="tech-tag">Firebase</span>
+                            <span class="tech-tag">Authentication</span>
+                        </div>
+                        <div class="project-features">
+                            <div class="feature">Automated Conflict Resolution</div>
+                            <div class="feature">Dynamic Resource Allocation</div>
+                            <div class="feature">Real-time Sync & Updates</div>
+                        </div>
+                        <div class="project-actions">
+                            <a href="https://timetable-ai.onrender.com/" class="btn btn-primary">View Project</a>
+                            <a href="https://github.com/Muthuselvam1203" class="btn btn-secondary">GitHub</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="section skills-section scroll-section">
+        <div class="section-content">
+            <h2 class="section-title">Tech Stack</h2>
+
+           <section class="skills-section">
+    <div class="skills-grid">
+
+        <!-- Programming & DSA -->
+        <div class="skill-card">
+            <div class="skill-card-header">
+                <h3>Programming & DSA</h3>
+            </div>
+
+            <div class="skill-items">
+                <span class="skill-badge">Python</span>
+                <span class="skill-badge">JavaScript</span>
+                <span class="skill-badge">Data Structures & Algorithms</span>
+            </div>
+        </div>
+
+        <!-- Frontend -->
+        <div class="skill-card">
+            <div class="skill-card-header">
+                <h3>Frontend</h3>
+            </div>
+
+            <div class="skill-items">
+                <span class="skill-badge">HTML</span>
+                <span class="skill-badge">CSS</span>
+                <span class="skill-badge">JavaScript</span>
+                <span class="skill-badge">React.js (Vite)</span>
+            </div>
+        </div>
+
+        <!-- Backend -->
+        <div class="skill-card">
+            <div class="skill-card-header">
+                <h3>Backend</h3>
+            </div>
+
+            <div class="skill-items">
+                <span class="skill-badge">Node.js</span>
+                <span class="skill-badge">Express.js</span>
+            </div>
+        </div>
+
+        <!-- Databases -->
+        <div class="skill-card">
+            <div class="skill-card-header">
+                <h3>Databases</h3>
+            </div>
+
+            <div class="skill-items">
+                <span class="skill-badge">SQL</span>
+                <span class="skill-badge">MongoDB</span>
+            </div>
+        </div>
+
+        <!-- Tools -->
+        <div class="skill-card">
+            <div class="skill-card-header">
+                <h3>Tools</h3>
+            </div>
+
+            <div class="skill-items">
+                <span class="skill-badge">Git</span>
+                <span class="skill-badge">GitHub</span>
+                <span class="skill-badge">Visual Studio Code</span>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+    <section id="contact" class="section contact-section scroll-section">
+        <div class="earth-container">
+            <div class="earth"></div>
+        </div>
+        <div class="section-content">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Let's Connect</h3>
+                    <p>I'm always interested in hearing about new opportunities and exciting projects. Feel free to
+                        reach out!</p>
+
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <span class="contact-label">Email:</span>
+                            <a href="mailto:muthuselvamm022@gmail.com">muthuselvamm022@gmail.com</a>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">Phone:</span>
+                            <a href="tel:+919345993773">+91 9363386350</a>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">Location:</span>
+                            <span>Tenkasi, Tamil Nadu</span>
+                        </div>
+                    </div>
+
+                    <div class="social-links">
+                        <a href="https://www.linkedin.com/in/muthuselvam-k-049112300?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank"
+                            class="social-link">LinkedIn</a>
+                        <a href="https://github.com/Muthuselvam1203" target="_blank" class="social-link">GitHub</a>
+                    </div>
+                </div>
+
+                <div class="contact-form">
+                    <form id="contactForm" onsubmit="sendEmail(event)">
+                        <div class="form-group">
+                            <label for="name">Your Name</label>
+                            <input type="text" id="name" name="name" placeholder="Your Name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Your Email</label>
+                            <input type="email" id="email" name="email" placeholder="Your Email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Your Message</label>
+                            <textarea id="message" name="message" placeholder="Your Message" rows="5"
+                                required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
+                    <div id="formMessage" class="form-message"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-bottom">
+                <p>&copy; 2026 Muthuselvam K. All rights reserved.</p>
+                <p>Designed with passion and code</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script src="email-config.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
