@@ -266,6 +266,60 @@ function updateActiveNav() {
 
 
 // ========================================
+// MOBILE MENU
+// ========================================
+
+function initMobileMenu() {
+    const hamburger = document.getElementById("hamburger") || document.querySelector(".hamburger");
+    const navLinks = document.getElementById("navLinks") || document.querySelector(".nav-links");
+    const navOverlay = document.getElementById("navOverlay") || document.querySelector(".nav-overlay");
+
+    if (!hamburger || !navLinks) return;
+
+    const toggleMenu = () => {
+        hamburger.classList.toggle("open");
+        navLinks.classList.toggle("active");
+        if (navOverlay) navOverlay.classList.toggle("active");
+        document.body.style.overflow = navLinks.classList.contains("active") ? "hidden" : "";
+    };
+
+    const closeMenu = () => {
+        hamburger.classList.remove("open");
+        navLinks.classList.remove("active");
+        if (navOverlay) navOverlay.classList.remove("active");
+        document.body.style.overflow = "";
+    };
+
+    hamburger.addEventListener("click", toggleMenu);
+    if (navOverlay) navOverlay.addEventListener("click", closeMenu);
+
+    document.querySelectorAll(".nav-link, .nav-cta-btn").forEach(link => {
+        link.addEventListener("click", closeMenu);
+    });
+}
+
+
+// ========================================
+// SCROLL PROGRESS BAR
+// ========================================
+
+function initScrollProgressBar() {
+    const progressBar = document.getElementById("scrollProgressBar");
+    if (!progressBar) return;
+
+    const updateProgress = () => {
+        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
+        progressBar.style.width = scrolled + "%";
+    };
+
+    window.addEventListener("scroll", updateProgress, { passive: true });
+    updateProgress();
+}
+
+
+// ========================================
 // NAVBAR HIDE / SHOW ON SCROLL
 // ========================================
 
@@ -780,153 +834,100 @@ function sendEmail(event) {
     }
 
 
-    // Loading message
-    if (formMessage) {
-        formMessage.innerHTML =
-            `<div class="loading-message">
-                Sending message...
-            </div>`;
+    // Submit button state handling
+    const submitBtn = document.getElementById("submitBtn") || form.querySelector("button[type='submit']");
+    const originalBtnHTML = submitBtn ? submitBtn.innerHTML : "Send Message";
 
-        formMessage.style.display =
-            "block";
+    if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = `<span>Sending...</span><svg class="spin-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line><line x1="2" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="22" y2="12"></line><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line></svg>`;
     }
 
+    if (formMessage) {
+        formMessage.className = "form-message";
+        formMessage.textContent = "Sending message...";
+        formMessage.style.display = "block";
+    }
 
     // ========================================
     // EMAILJS TEMPLATE PARAMETERS
     // ========================================
+    const subjectInput = document.getElementById("subject");
+    const subject = subjectInput ? subjectInput.value.trim() : "General Inquiry";
 
     const templateParams = {
-
-        // Visitor's name
         from_name: name,
-
-        // Visitor's name
         name: name,
-
-        // Visitor's email
         email: email,
-
-        // Visitor's message
+        subject: subject,
         message: message,
-
-        // Submission time
         time: new Date().toLocaleString()
     };
 
-
-    console.log(
-        "Sending contact form...",
-        {
-            from_name: name,
-            email: email
-        }
-    );
-
+    console.log("Sending contact form...", { from_name: name, email: email, subject: subject });
 
     // ========================================
     // CHECK EMAILJS CONFIGURATION
     // ========================================
-
-    if (
-        !window.emailConfig ||
-        !window.emailConfig.isInitialized
-    ) {
-
-        console.error(
-            "EmailJS is not initialized."
-        );
-
-        console.error(
-            "EmailJS status:",
-            window.emailConfig?.getConfigStatus?.()
-        );
-
-
+    if (!window.emailConfig || !window.emailConfig.isInitialized) {
+        console.error("EmailJS is not initialized.");
         if (formMessage) {
-            formMessage.innerHTML =
-                `<div class="error-message">
-                    Email service is not ready.
-                    Please try again.
-                </div>`;
+            formMessage.className = "form-message error";
+            formMessage.textContent = "Email service is not ready. Please reach out via muthuselvamm022@gmail.com directly.";
+            formMessage.style.display = "block";
         }
-
+        if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalBtnHTML;
+        }
         return;
     }
-
 
     // ========================================
     // SEND EMAIL
     // ========================================
-
     window.emailConfig
         .sendEmail(templateParams)
-
         .then(response => {
-
-            console.log(
-                "EmailJS SUCCESS:",
-                response.status,
-                response.text
-            );
-
+            console.log("EmailJS SUCCESS:", response.status, response.text);
 
             if (formMessage) {
-                formMessage.innerHTML =
-                    `<div class="success-message">
-                        Message sent successfully!
-                        I'll get back to you soon.
-                    </div>`;
-
-                formMessage.style.display =
-                    "block";
+                formMessage.className = "form-message success";
+                formMessage.textContent = "Message sent successfully! I'll get back to you soon.";
+                formMessage.style.display = "block";
             }
 
-
-            // Clear form
             form.reset();
 
-
-            // Hide message
-            setTimeout(() => {
-
-                if (formMessage) {
-                    formMessage.style.display =
-                        "none";
-                }
-
-            }, 5000);
-
-        })
-
-        .catch(error => {
-
-            console.error(
-                "EmailJS FAILED:",
-                error
-            );
-
-
-            if (formMessage) {
-                formMessage.innerHTML =
-                    `<div class="error-message">
-                        Failed to send message.
-                        Please try again later.
-                    </div>`;
-
-                formMessage.style.display =
-                    "block";
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = `<span>Sent Successfully!</span> ✓`;
+                setTimeout(() => {
+                    submitBtn.innerHTML = originalBtnHTML;
+                }, 3000);
             }
 
+            setTimeout(() => {
+                if (formMessage) formMessage.style.display = "none";
+            }, 6000);
+        })
+        .catch(error => {
+            console.error("EmailJS FAILED:", error);
+
+            if (formMessage) {
+                formMessage.className = "form-message error";
+                formMessage.textContent = "Failed to send message. Please try again or email directly to muthuselvamm022@gmail.com.";
+                formMessage.style.display = "block";
+            }
+
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = originalBtnHTML;
+            }
 
             setTimeout(() => {
-
-                if (formMessage) {
-                    formMessage.style.display =
-                        "none";
-                }
-
-            }, 5000);
+                if (formMessage) formMessage.style.display = "none";
+            }, 6000);
         });
 }
 
@@ -1243,22 +1244,29 @@ document.addEventListener(
         if (typewriterElement) {
 
             const roles = [
-                "Web Developer",
-                "IT Student",
-                "FrontEnd Developer",
-                "Designer",
-                "Data Analytics Enthusiast"
+                "Full-Stack Developer",
+                "Data Analyst",
+                "React & Vite Engineer",
+                "Mobile App Developer",
+                "B.Tech IT Technologist"
             ];
 
 
             new TypeWriter(
                 typewriterElement,
                 roles,
-                100,
-                50,
-                2000
+                90,
+                45,
+                2200
             );
         }
+
+
+        // ====================================
+        // SCROLL PROGRESS BAR
+        // ====================================
+
+        initScrollProgressBar();
 
 
         // ====================================
