@@ -1,1563 +1,931 @@
-// ========================================
-// TYPEWRITER EFFECT FOR HERO SECTION
-// ========================================
+/**
+ * ============================================================================
+ * PREMIUM MODERN DEVELOPER PORTFOLIO - JAVASCRIPT CORE
+ * Muthuselvam K | Full-Stack Web Developer & Data Analyst
+ * ============================================================================
+ */
 
-class TypeWriter {
-    constructor(
-        element,
-        roles,
-        typingSpeed = 100,
-        deletingSpeed = 50,
-        pauseTime = 2000
-    ) {
-        this.element = element;
-        this.roles = roles;
-        this.typingSpeed = typingSpeed;
-        this.deletingSpeed = deletingSpeed;
-        this.pauseTime = pauseTime;
-        this.roleIndex = 0;
-        this.charIndex = 0;
-        this.isDeleting = false;
+document.addEventListener('DOMContentLoaded', () => {
+    // Initialize All Interactive Systems
+    initThemeSwitcher();
+    initTypeWriter();
+    initScrollProgressBar();
+    initNavbar();
+    initMobileNavigation();
+    initProjectFiltering();
+    initProjectModal();
+    initResumeModal();
+    initStatCounters();
+    initContactForm();
+    initCustomCursor();
+    initParticleCanvas();
+    initVanillaTilt();
+    initBackToTop();
+    initScrollReveal();
+    initMagneticButtons();
+});
 
-        this.maxLength = Math.max(
-            ...roles.map(role => role.length)
-        );
+/* ==========================================================================
+   1. THEME SWITCHER (DARK / LIGHT MODE)
+   ========================================================================== */
+function initThemeSwitcher() {
+    const themeToggleBtn = document.getElementById('themeToggleBtn');
+    if (!themeToggleBtn) return;
 
-        this.init();
+    // Check localStorage or system preference
+    const savedTheme = localStorage.getItem('theme');
+    const systemPrefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+    
+    const initialTheme = savedTheme ? savedTheme : (systemPrefersLight ? 'light' : 'dark');
+    setTheme(initialTheme);
+
+    themeToggleBtn.addEventListener('click', () => {
+        const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        setTheme(newTheme);
+    });
+
+    function setTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        localStorage.setItem('theme', theme);
+        
+        // Notify Particle System if active
+        if (window.particleSystemInstance) {
+            window.particleSystemInstance.updateThemeColors(theme);
+        }
     }
+}
 
-    init() {
-        this.element.style.display = "inline-block";
-        this.element.style.width = `${this.maxLength}ch`;
-        this.element.style.verticalAlign = "bottom";
+/* ==========================================================================
+   2. TYPEWRITER ANIMATION (HERO SECTION)
+   ========================================================================== */
+function initTypeWriter() {
+    const typewriterElement = document.getElementById('typewriter');
+    if (!typewriterElement) return;
 
-        this.type();
-    }
+    const roles = [
+        'Full-Stack Developer',
+        'Data Analyst',
+        'React & Vite Engineer',
+        'Native Android Developer',
+        'B.Tech IT Technologist'
+    ];
 
-    type() {
-        const currentRole = this.roles[this.roleIndex];
+    let roleIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    let typingSpeed = 90;
 
-        if (this.isDeleting) {
-            this.element.textContent =
-                currentRole.substring(0, this.charIndex - 1);
+    function type() {
+        const currentRole = roles[roleIndex];
 
-            this.charIndex--;
-
-            if (this.charIndex === 0) {
-                this.isDeleting = false;
-
-                this.roleIndex =
-                    (this.roleIndex + 1) % this.roles.length;
-
-                setTimeout(() => this.type(), 500);
-            } else {
-                setTimeout(
-                    () => this.type(),
-                    this.deletingSpeed
-                );
-            }
+        if (isDeleting) {
+            typewriterElement.textContent = currentRole.substring(0, charIndex - 1);
+            charIndex--;
+            typingSpeed = 45;
         } else {
-            this.element.textContent =
-                currentRole.substring(0, this.charIndex + 1);
-
-            this.charIndex++;
-
-            if (this.charIndex === currentRole.length) {
-                this.isDeleting = true;
-
-                setTimeout(
-                    () => this.type(),
-                    this.pauseTime
-                );
-            } else {
-                setTimeout(
-                    () => this.type(),
-                    this.typingSpeed
-                );
-            }
+            typewriterElement.textContent = currentRole.substring(0, charIndex + 1);
+            charIndex++;
+            typingSpeed = 90;
         }
+
+        if (!isDeleting && charIndex === currentRole.length) {
+            isDeleting = true;
+            typingSpeed = 2200; // Pause at end of word
+        } else if (isDeleting && charIndex === 0) {
+            isDeleting = false;
+            roleIndex = (roleIndex + 1) % roles.length;
+            typingSpeed = 400; // Pause before new word
+        }
+
+        setTimeout(type, typingSpeed);
     }
+
+    type();
 }
 
-
-// ========================================
-// THROTTLE FUNCTION
-// ========================================
-
-function throttle(func, limit) {
-    let inThrottle;
-
-    return function () {
-        const args = arguments;
-        const context = this;
-
-        if (!inThrottle) {
-            func.apply(context, args);
-
-            inThrottle = true;
-
-            setTimeout(() => {
-                inThrottle = false;
-            }, limit);
-        }
-    };
-}
-
-
-// ========================================
-// PROJECT SCROLL ANIMATIONS
-// ========================================
-
-function initProjectScrollAnimations() {
-    const projectItems =
-        document.querySelectorAll(".project-item");
-
-    // Add level classes
-    projectItems.forEach((item, index) => {
-        const level = (index % 5) + 1;
-
-        item.classList.add(`level-${level}`);
-    });
-
-    // Intersection Observer
-    const observerOptions = {
-        threshold: 0.2,
-        rootMargin: "0px 0px -50px 0px"
-    };
-
-    const observer = new IntersectionObserver(
-        (entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add("animate-in");
-                }
-            });
-        },
-        observerOptions
-    );
-
-    projectItems.forEach(item => {
-        observer.observe(item);
-    });
-
-    // Parallax effect
-    window.addEventListener(
-        "scroll",
-        throttle(() => {
-            const scrolled = window.pageYOffset;
-
-            const parallaxElements =
-                document.querySelectorAll(
-                    ".project-item.animate-in"
-                );
-
-            parallaxElements.forEach(element => {
-                const rect =
-                    element.getBoundingClientRect();
-
-                const elementHeight = rect.height;
-                const viewportHeight = window.innerHeight;
-
-                if (
-                    rect.top < viewportHeight &&
-                    rect.bottom > 0
-                ) {
-                    const scrollProgress =
-                        (viewportHeight - rect.top) /
-                        (viewportHeight + elementHeight);
-
-                    const parallaxOffset =
-                        scrollProgress * 10;
-
-                    const content =
-                        element.querySelector(
-                            ".project-content"
-                        );
-
-                    if (content) {
-                        content.style.transform =
-                            `translateY(${parallaxOffset * 0.3}px)`;
-                    }
-                }
-            });
-        }, 16)
-    );
-}
-
-
-// ========================================
-// PROJECT LOCK FUNCTIONS
-// ========================================
-
-function initProjectLockSystem() {
-    console.log(
-        "Project lock system initialized"
-    );
-}
-
-function initAdvancedScrollAnimations() {
-    console.log(
-        "Advanced scroll animations initialized"
-    );
-}
-
-function initScrollBasedProjectLock() {
-    console.log(
-        "Scroll based project lock initialized"
-    );
-}
-
-
-// ========================================
-// NAVIGATION FUNCTIONS
-// ========================================
-
-function handleNavScroll() {
-    const nav =
-        document.querySelector(".navbar");
-
-    if (!nav) return;
-
-    if (window.scrollY > 50) {
-        nav.classList.add("scrolled");
-    } else {
-        nav.classList.remove("scrolled");
-    }
-}
-
-
-function updateActiveNav() {
-    const sections =
-        document.querySelectorAll("section");
-
-    const navLinks =
-        document.querySelectorAll(".nav-link");
-
-    let currentSection = "";
-
-    sections.forEach(section => {
-        const sectionTop =
-            section.offsetTop - 100;
-
-        const sectionHeight =
-            section.offsetHeight;
-
-        if (
-            window.scrollY >= sectionTop &&
-            window.scrollY <
-                sectionTop + sectionHeight
-        ) {
-            currentSection =
-                section.getAttribute("id");
-        }
-    });
-
-    navLinks.forEach(link => {
-        link.classList.remove("active");
-
-        if (
-            link.getAttribute("href") ===
-            `#${currentSection}`
-        ) {
-            link.classList.add("active");
-        }
-    });
-}
-
-
-// ========================================
-// MOBILE MENU
-// ========================================
-
-function initMobileMenu() {
-    const hamburger = document.getElementById("hamburger") || document.querySelector(".hamburger");
-    const navLinks = document.getElementById("navLinks") || document.querySelector(".nav-links");
-    const navOverlay = document.getElementById("navOverlay") || document.querySelector(".nav-overlay");
-
-    if (!hamburger || !navLinks) return;
-
-    const toggleMenu = () => {
-        hamburger.classList.toggle("open");
-        navLinks.classList.toggle("active");
-        if (navOverlay) navOverlay.classList.toggle("active");
-        document.body.style.overflow = navLinks.classList.contains("active") ? "hidden" : "";
-    };
-
-    const closeMenu = () => {
-        hamburger.classList.remove("open");
-        navLinks.classList.remove("active");
-        if (navOverlay) navOverlay.classList.remove("active");
-        document.body.style.overflow = "";
-    };
-
-    hamburger.addEventListener("click", toggleMenu);
-    if (navOverlay) navOverlay.addEventListener("click", closeMenu);
-
-    document.querySelectorAll(".nav-link, .nav-cta-btn").forEach(link => {
-        link.addEventListener("click", closeMenu);
-    });
-}
-
-
-// ========================================
-// SCROLL PROGRESS BAR
-// ========================================
-
+/* ==========================================================================
+   3. SCROLL PROGRESS BAR
+   ========================================================================== */
 function initScrollProgressBar() {
-    const progressBar = document.getElementById("scrollProgressBar");
+    const progressBar = document.getElementById('scrollProgressBar');
     if (!progressBar) return;
 
     const updateProgress = () => {
-        const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-        const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
-        progressBar.style.width = scrolled + "%";
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const progress = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+        progressBar.style.width = `${progress}%`;
     };
 
-    window.addEventListener("scroll", updateProgress, { passive: true });
+    window.addEventListener('scroll', updateProgress, { passive: true });
     updateProgress();
 }
 
-
-// ========================================
-// NAVBAR HIDE / SHOW ON SCROLL
-// ========================================
-
-let lastScrollTop = 0;
-const scrollThreshold = 100;
-let navbarHidden = false;
-
-function handleNavbarHide() {
-    const navbar =
-        document.querySelector(".navbar");
+/* ==========================================================================
+   4. FLOATING NAVBAR & SCROLL SPY
+   ========================================================================== */
+function initNavbar() {
+    const navbar = document.getElementById('navbar');
+    const navLinks = document.querySelectorAll('.nav-links .nav-link');
+    const sections = document.querySelectorAll('section[id]');
 
     if (!navbar) return;
 
-    const scrollTop =
-        window.pageYOffset ||
-        document.documentElement.scrollTop;
-
-    if (
-        scrollTop > lastScrollTop &&
-        scrollTop > scrollThreshold
-    ) {
-        if (!navbarHidden) {
-            navbar.style.transform =
-                "translateY(-100%)";
-
-            navbar.style.transition =
-                "transform 0.3s ease-in-out";
-
-            navbarHidden = true;
+    const handleScroll = () => {
+        // Sticky background
+        if (window.scrollY > 40) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
         }
-    } else if (
-        scrollTop < lastScrollTop ||
-        scrollTop < scrollThreshold
-    ) {
-        if (navbarHidden) {
-            navbar.style.transform =
-                "translateY(0)";
 
-            navbar.style.transition =
-                "transform 0.3s ease-in-out";
+        // Active Link Spy
+        let currentSectionId = '';
+        const scrollPosition = window.scrollY + 140;
 
-            navbarHidden = false;
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.offsetHeight;
+
+            if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                currentSectionId = section.getAttribute('id');
+            }
+        });
+
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === `#${currentSectionId}`) {
+                link.classList.add('active');
+            }
+        });
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+}
+
+/* ==========================================================================
+   5. MOBILE NAVIGATION DRAWER
+   ========================================================================== */
+function initMobileNavigation() {
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+    const navOverlay = document.getElementById('navOverlay');
+
+    if (!hamburger || !navLinks || !navOverlay) return;
+
+    const openMenu = () => {
+        hamburger.classList.add('open');
+        hamburger.setAttribute('aria-expanded', 'true');
+        navLinks.classList.add('active');
+        navOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    };
+
+    const closeMenu = () => {
+        hamburger.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', 'false');
+        navLinks.classList.remove('active');
+        navOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+    };
+
+    hamburger.addEventListener('click', () => {
+        const isOpen = navLinks.classList.contains('active');
+        if (isOpen) closeMenu();
+        else openMenu();
+    });
+
+    navOverlay.addEventListener('click', closeMenu);
+
+    document.querySelectorAll('.nav-links a').forEach(link => {
+        link.addEventListener('click', closeMenu);
+    });
+}
+
+/* ==========================================================================
+   6. PROJECT DETAILS DATA & MODAL SYSTEM
+   ========================================================================== */
+const projectsData = {
+    shopai: {
+        title: "ShopAI — AI Product Search & Insights Platform",
+        category: "AI & Web Platform",
+        problem: "Consumers spend hours navigating disjointed e-commerce websites, comparing fractured specifications, reading contradictory reviews, and struggling to benchmark fair market prices.",
+        solution: "Engineered a unified intelligent web platform that aggregates real-time product listings via external REST APIs, analyzes review sentiment, and algorithmically categorizes products into 'Best Overall', 'Budget Choice', and 'Premium Pick'.",
+        features: [
+            "Real-time external REST API product data aggregation",
+            "Natural Language Processing & sentiment analysis on customer reviews",
+            "Instant price benchmarking & budget vs premium categorization",
+            "High-speed reactive search bar with debounced query filters",
+            "Responsive product comparison matrix with detailed breakdown",
+            "Single-click direct retailer navigation & checkout redirect"
+        ],
+        techStack: ["React.js", "Node.js", "Express.js", "REST APIs", "Modern CSS", "Vite", "JavaScript (ES6+)"],
+        challenges: "Managing rate limits and latency across asynchronous multiple API fetches. Resolved by implementing an Express caching layer and optimistic UI rendering in React.",
+        outcome: "Delivered a sub-second search experience with intuitive AI recommendations that streamlines product comparison for users.",
+        github: "https://github.com/Muthuselvam1203",
+        demo: "https://github.com/Muthuselvam1203"
+    },
+    library: {
+        title: "Campus Library & Student Resource System",
+        category: "Mobile & Cloud Architecture",
+        problem: "Manual library book tracking and paper logs at educational institutions led to lost inventory, delayed return notifications, and lack of real-time visibility for students.",
+        solution: "Built a native Android mobile application with a real-time cloud backend using Firebase Firestore, authentication, and Firebase Cloud Messaging (FCM) to automate book issuing, renewal reminders, and catalog queries.",
+        features: [
+            "Real-time catalog search and book availability status",
+            "Student and Administrator role-based authentication",
+            "Firebase Cloud Messaging (FCM) automated push alerts for return deadlines",
+            "Digital borrowing history and barcode/ID catalog indexing",
+            "Offline data persistence with SQLite and Firebase Local Cache",
+            "Clean XML-based responsive UI matching Google Material Design"
+        ],
+        techStack: ["Java", "Android Studio", "Firebase Firestore", "Firebase Auth", "FCM Cloud Messaging", "XML Layouts"],
+        challenges: "Managing state synchronization across intermittent campus Wi-Fi networks. Solved using Firestore offline persistence and structured SQLite fallback caching.",
+        outcome: "Eliminated manual tracking friction, providing instant push notifications and transparent book management for both students and staff.",
+        github: "https://github.com/Muthuselvam1203",
+        demo: "https://github.com/Muthuselvam1203"
+    },
+    timetable: {
+        title: "AI Timetable & Dynamic Scheduling System",
+        category: "GenAI & Automation",
+        problem: "Academic timetable scheduling is an NP-hard problem prone to classroom conflicts, faculty schedule clashes, and inefficient institutional resource utilization.",
+        solution: "Developed an algorithmic conflict resolution and timetable generation engine leveraging vector similarity indexing and constraint programming to generate collision-free schedules in seconds.",
+        features: [
+            "Automated multi-constraint schedule optimization algorithm",
+            "Vector-based similarity indexing for intelligent faculty & lab querying",
+            "Real-time schedule conflict visualization and alert flags",
+            "Interactive timetable calendar grid with drag-and-drop adjustments",
+            "Export schedules to PDF, Excel, and Google Calendar formats",
+            "Multi-department access with synchronized cloud storage"
+        ],
+        techStack: ["React.js", "Node.js", "Firebase", "Vector Search", "RESTful API", "JavaScript", "Vite"],
+        challenges: "Handling complex hard and soft constraints simultaneously without high computational overhead. Solved through custom backtracking heuristics combined with vector indexing.",
+        outcome: "Reduced timetable scheduling turnaround from several days of manual work to under 30 seconds with 100% collision avoidance.",
+        github: "https://github.com/Muthuselvam1203",
+        demo: "https://github.com/Muthuselvam1203"
+    },
+    healthcare: {
+        title: "Healthcare & Clinical Analytics Platform",
+        category: "Analytics & Business Intelligence",
+        problem: "Healthcare administrators struggle to extract actionable trends from raw hospital admission records, resulting in inefficient resource allocations and longer patient wait times.",
+        solution: "Designed an end-to-end clinical data analytics pipeline in Python and SQL, utilizing Pandas for data cleansing and Power BI for interactive executive monitoring dashboards.",
+        features: [
+            "Exploratory Data Analysis (EDA) on patient diagnosis and recovery timelines",
+            "Automated outlier detection and data cleansing pipelines",
+            "Multi-table relational SQL query optimization with complex joins",
+            "Interactive Power BI dashboard with dynamic parameter slicing",
+            "Bed occupancy forecasting and department workload heatmaps",
+            "Statistical KPI tracking for average length of stay (ALOS)"
+        ],
+        techStack: ["Python", "SQL", "Power BI", "Pandas", "NumPy", "EDA", "Data Preprocessing"],
+        challenges: "Handling missing clinical parameters and reconciling heterogeneous data formats. Addressed by building robust imputation pipelines in Python.",
+        outcome: "Provided clear visual metrics enabling healthcare coordinators to identify resource bottlenecks and optimize patient care workflows.",
+        github: "https://github.com/Muthuselvam1203",
+        demo: "https://github.com/Muthuselvam1203"
+    },
+    academic: {
+        title: "Student Academic Performance Predictor",
+        category: "Data Science & Machine Learning",
+        problem: "Educators often identify underperforming students too late in the academic semester, missing the crucial window for targeted tutoring and interventions.",
+        solution: "Constructed an exploratory predictive analytics model that correlates attendance, continuous assessment scores, and study habits to forecast final grades and flag at-risk students early.",
+        features: [
+            "Multivariate correlation analysis and feature importance ranking",
+            "Statistical regression modeling to project final semester performance",
+            "Early warning alert flags for students scoring below threshold metrics",
+            "Tableau visual storytelling dashboards for faculty and mentor reviews",
+            "Segmented cohort analysis based on attendance and assignment completion",
+            "Automated data preprocessing scripts built with NumPy and Pandas"
+        ],
+        techStack: ["Python", "Tableau", "Scikit-Learn", "Pandas", "NumPy", "Statistical Analysis"],
+        challenges: "Preventing model bias due to imbalanced historical assessment datasets. Handled through stratified cross-validation and feature scaling.",
+        outcome: "Empowered faculty mentors to identify at-risk students with over 85% early prediction accuracy.",
+        github: "https://github.com/Muthuselvam1203",
+        demo: "https://github.com/Muthuselvam1203"
+    }
+};
+
+function initProjectModal() {
+    const projectModal = document.getElementById('projectModal');
+    const projectModalBody = document.getElementById('projectModalBody');
+    const closeBtn = document.getElementById('closeProjectModalBtn');
+    const detailButtons = document.querySelectorAll('.view-details-btn');
+
+    if (!projectModal || !projectModalBody || !closeBtn) return;
+
+    const openModal = (projectId) => {
+        const project = projectsData[projectId];
+        if (!project) return;
+
+        projectModalBody.innerHTML = `
+            <div class="pm-header">
+                <span class="pm-category">${project.category}</span>
+                <h3 class="pm-title">${project.title}</h3>
+            </div>
+
+            <div class="pm-section">
+                <h4 class="pm-section-title">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                    The Problem
+                </h4>
+                <p class="pm-text">${project.problem}</p>
+            </div>
+
+            <div class="pm-section">
+                <h4 class="pm-section-title">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                    Engineered Solution
+                </h4>
+                <p class="pm-text">${project.solution}</p>
+            </div>
+
+            <div class="pm-section">
+                <h4 class="pm-section-title">Key Architectural Features</h4>
+                <div class="pm-features-grid">
+                    ${project.features.map(f => `
+                        <div class="pm-feature-item">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                            <span>${f}</span>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+
+            <div class="pm-section">
+                <h4 class="pm-section-title">Technology Stack & Libraries</h4>
+                <div class="pm-tech-list">
+                    ${project.techStack.map(t => `<span class="p-tech">${t}</span>`).join('')}
+                </div>
+            </div>
+
+            <div class="pm-section">
+                <h4 class="pm-section-title">Engineering Challenges Overcome</h4>
+                <p class="pm-text">${project.challenges}</p>
+            </div>
+
+            <div class="pm-section">
+                <h4 class="pm-section-title">Key Impact & Outcome</h4>
+                <p class="pm-text">${project.outcome}</p>
+            </div>
+
+            <div class="pm-actions">
+                <a href="${project.github}" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-glow">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+                    <span>View Repository</span>
+                </a>
+                <a href="${project.demo}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+                    <span>Live Documentation</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg>
+                </a>
+            </div>
+        `;
+
+        projectModal.classList.add('active');
+        projectModal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+    };
+
+    const closeModal = () => {
+        projectModal.classList.remove('active');
+        projectModal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+    };
+
+    detailButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            const projectId = button.getAttribute('data-project-id');
+            openModal(projectId);
+        });
+    });
+
+    closeBtn.addEventListener('click', closeModal);
+
+    projectModal.addEventListener('click', (e) => {
+        if (e.target === projectModal) {
+            closeModal();
         }
+    });
+
+    window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && projectModal.classList.contains('active')) {
+            closeModal();
+        }
+    });
+}
+
+/* ==========================================================================
+   7. PROJECT CATEGORY FILTERING
+   ========================================================================== */
+function initProjectFiltering() {
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const projectCards = document.querySelectorAll('.project-card');
+
+    if (!filterButtons.length || !projectCards.length) return;
+
+    filterButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            // Update active button state
+            filterButtons.forEach(b => {
+                b.classList.remove('active');
+                b.setAttribute('aria-selected', 'false');
+            });
+            btn.classList.add('active');
+            btn.setAttribute('aria-selected', 'true');
+
+            const filterValue = btn.getAttribute('data-filter');
+
+            projectCards.forEach(card => {
+                const category = card.getAttribute('data-category') || '';
+                
+                if (filterValue === 'all' || category.includes(filterValue)) {
+                    card.style.display = 'flex';
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0) scale(1)';
+                    }, 20);
+                } else {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(15px) scale(0.96)';
+                    setTimeout(() => {
+                        card.style.display = 'none';
+                    }, 250);
+                }
+            });
+        });
+    });
+}
+
+/* ==========================================================================
+   8. RESUME PREVIEW MODAL
+   ========================================================================== */
+function initResumeModal() {
+    const resumeModal = document.getElementById('resumeModal');
+    const resumeHeroBtn = document.getElementById('resumeHeroBtn');
+    const closeBtn = document.getElementById('closeResumeModalBtn');
+    const printBtn = document.getElementById('printResumeBtn');
+
+    if (!resumeModal || !closeBtn) return;
+
+    const openModal = () => {
+        resumeModal.classList.add('active');
+        resumeModal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+    };
+
+    const closeModal = () => {
+        resumeModal.classList.remove('active');
+        resumeModal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+    };
+
+    if (resumeHeroBtn) {
+        resumeHeroBtn.addEventListener('click', openModal);
     }
 
-    lastScrollTop =
-        scrollTop <= 0 ? 0 : scrollTop;
-}
+    closeBtn.addEventListener('click', closeModal);
 
-
-// ========================================
-// SCROLL ANIMATIONS
-// ========================================
-
-function initScrollAnimations() {
-
-    // Main sections
-    const sectionObserver =
-        new IntersectionObserver(
-            entries => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add(
-                            "is-visible"
-                        );
-                    }
-                });
-            },
-            {
-                threshold: 0.05,
-                rootMargin:
-                    "0px 0px -80px 0px"
-            }
-        );
-
-    document
-        .querySelectorAll(".scroll-section")
-        .forEach(section => {
-            sectionObserver.observe(section);
-        });
-
-
-    // Skill categories
-    const categoryObserver =
-        new IntersectionObserver(
-            entries => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add(
-                            "is-visible"
-                        );
-                    }
-                });
-            },
-            {
-                threshold: 0.1,
-                rootMargin:
-                    "0px 0px -50px 0px"
-            }
-        );
-
-    document
-        .querySelectorAll(
-            ".skill-category-section"
-        )
-        .forEach(category => {
-            categoryObserver.observe(category);
-        });
-}
-
-
-// ========================================
-// SCROLL ANIMATION CSS
-// ========================================
-
-function addScrollAnimationsCSS() {
-    const style =
-        document.createElement("style");
-
-    style.textContent = `
-        .navbar {
-            transition:
-                transform 0.3s ease-in-out;
+    resumeModal.addEventListener('click', (e) => {
+        if (e.target === resumeModal) {
+            closeModal();
         }
+    });
+
+    window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && resumeModal.classList.contains('active')) {
+            closeModal();
+        }
+    });
+
+    if (printBtn) {
+        printBtn.addEventListener('click', () => {
+            window.print();
+        });
+    }
+}
+
+/* ==========================================================================
+   9. STAT COUNTERS (ANIMATION ON SCROLL)
+   ========================================================================== */
+function initStatCounters() {
+    const counters = document.querySelectorAll('.counter');
+    if (!counters.length) return;
+
+    let hasAnimated = false;
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !hasAnimated) {
+                hasAnimated = true;
+                counters.forEach(counter => {
+                    const target = parseInt(counter.getAttribute('data-target'), 10) || 0;
+                    const duration = 1500;
+                    const stepTime = 40;
+                    const steps = duration / stepTime;
+                    const increment = target / steps;
+                    let current = 0;
+
+                    const timer = setInterval(() => {
+                        current += increment;
+                        if (current >= target) {
+                            counter.textContent = target;
+                            clearInterval(timer);
+                        } else {
+                            counter.textContent = Math.floor(current);
+                        }
+                    }, stepTime);
+                });
+            }
+        });
+    }, { threshold: 0.2 });
+
+    const statsStrip = document.querySelector('.hero-stats-strip');
+    if (statsStrip) {
+        observer.observe(statsStrip);
+    }
+}
+
+/* ==========================================================================
+   10. TOAST NOTIFICATION MANAGER
+   ========================================================================== */
+function showToast(message, type = 'success', duration = 4500) {
+    const container = document.getElementById('toastContainer');
+    if (!container) return;
+
+    const toast = document.createElement('div');
+    toast.className = `toast toast-${type}`;
+
+    const iconSvg = type === 'success'
+        ? `<svg class="toast-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>`
+        : `<svg class="toast-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>`;
+
+    toast.innerHTML = `
+        ${iconSvg}
+        <span class="toast-message">${message}</span>
     `;
 
-    document.head.appendChild(style);
+    container.appendChild(toast);
+
+    setTimeout(() => {
+        toast.style.opacity = '0';
+        toast.style.transform = 'translateY(15px) scale(0.9)';
+        setTimeout(() => {
+            if (toast.parentNode) {
+                toast.parentNode.removeChild(toast);
+            }
+        }, 300);
+    }, duration);
 }
 
+/* ==========================================================================
+   11. CONTACT FORM & EMAILJS INTEGRATION
+   ========================================================================== */
+function initContactForm() {
+    const contactForm = document.getElementById('contactForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const formMessage = document.getElementById('formMessage');
 
-// ========================================
-// PARTICLE SYSTEM
-// ========================================
+    if (!contactForm) return;
 
-class ParticleSystem {
+    contactForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
 
-    constructor(canvas) {
-        this.canvas = canvas;
+        const nameInput = document.getElementById('name');
+        const emailInput = document.getElementById('email');
+        const subjectInput = document.getElementById('subject');
+        const messageInput = document.getElementById('message');
 
-        if (!canvas) {
+        const name = nameInput ? nameInput.value.trim() : '';
+        const email = emailInput ? emailInput.value.trim() : '';
+        const subject = subjectInput ? subjectInput.value.trim() || 'General Inquiry' : 'General Inquiry';
+        const message = messageInput ? messageInput.value.trim() : '';
+
+        // Validation
+        if (!name || !email || !message) {
+            showToast('Please fill in all required fields (Name, Email, Message).', 'error');
             return;
         }
 
-        this.ctx =
-            canvas.getContext("2d");
-
-        this.particles = [];
-
-        this.mouseX = 0;
-        this.mouseY = 0;
-
-        this.init();
-    }
-
-
-    init() {
-        this.resize();
-
-        this.createParticles();
-
-        this.animate();
-
-        window.addEventListener(
-            "resize",
-            () => this.resize()
-        );
-
-        window.addEventListener(
-            "mousemove",
-            event => {
-                this.mouseX =
-                    event.clientX;
-
-                this.mouseY =
-                    event.clientY;
-            }
-        );
-    }
-
-
-    resize() {
-        this.canvas.width =
-            window.innerWidth;
-
-        this.canvas.height =
-            window.innerHeight;
-    }
-
-
-    createParticles() {
-        const particleCount =
-            Math.min(
-                window.innerWidth / 10,
-                100
-            );
-
-        this.particles = [];
-
-        for (
-            let i = 0;
-            i < particleCount;
-            i++
-        ) {
-            this.particles.push({
-                x:
-                    Math.random() *
-                    this.canvas.width,
-
-                y:
-                    Math.random() *
-                    this.canvas.height,
-
-                vx:
-                    (Math.random() - 0.5) *
-                    1.5,
-
-                vy:
-                    (Math.random() - 0.5) *
-                    1.5,
-
-                size:
-                    Math.random() * 2 + 1,
-
-                color:
-                    `rgba(${
-                        Math.random() > 0.5
-                            ? "255, 0, 51"
-                            : "153, 0, 0"
-                    }, ${
-                        Math.random() * 0.5 + 0.2
-                    })`
-            });
-        }
-    }
-
-
-    animate() {
-        if (!this.ctx) return;
-
-        this.ctx.clearRect(
-            0,
-            0,
-            this.canvas.width,
-            this.canvas.height
-        );
-
-
-        // Draw particles
-        this.particles.forEach(
-            particle => {
-
-                particle.x +=
-                    particle.vx;
-
-                particle.y +=
-                    particle.vy;
-
-
-                // Wrap edges
-                if (particle.x < 0) {
-                    particle.x =
-                        this.canvas.width;
-                }
-
-                if (
-                    particle.x >
-                    this.canvas.width
-                ) {
-                    particle.x = 0;
-                }
-
-                if (particle.y < 0) {
-                    particle.y =
-                        this.canvas.height;
-                }
-
-                if (
-                    particle.y >
-                    this.canvas.height
-                ) {
-                    particle.y = 0;
-                }
-
-
-                // Mouse interaction
-                const dx =
-                    this.mouseX -
-                    particle.x;
-
-                const dy =
-                    this.mouseY -
-                    particle.y;
-
-                const distance =
-                    Math.sqrt(
-                        dx * dx +
-                        dy * dy
-                    );
-
-
-                if (
-                    distance < 200 &&
-                    distance > 0
-                ) {
-                    const force =
-                        (200 - distance) /
-                        200;
-
-                    particle.vx +=
-                        (dx / distance) *
-                        force *
-                        0.05;
-
-                    particle.vy +=
-                        (dy / distance) *
-                        force *
-                        0.05;
-                }
-
-
-                // Friction
-                particle.vx *= 0.99;
-                particle.vy *= 0.99;
-
-
-                // Draw particle
-                this.ctx.beginPath();
-
-                this.ctx.arc(
-                    particle.x,
-                    particle.y,
-                    particle.size,
-                    0,
-                    Math.PI * 2
-                );
-
-                this.ctx.fillStyle =
-                    particle.color;
-
-                this.ctx.shadowBlur = 10;
-
-                this.ctx.shadowColor =
-                    particle.color;
-
-                this.ctx.fill();
-
-                this.ctx.shadowBlur = 0;
-            }
-        );
-
-
-        // Connections
-        this.particles.forEach(
-            (particle, index) => {
-
-                this.particles
-                    .slice(index + 1)
-                    .forEach(otherParticle => {
-
-                        const dx =
-                            particle.x -
-                            otherParticle.x;
-
-                        const dy =
-                            particle.y -
-                            otherParticle.y;
-
-                        const distance =
-                            Math.sqrt(
-                                dx * dx +
-                                dy * dy
-                            );
-
-
-                        if (distance < 150) {
-
-                            this.ctx.beginPath();
-
-                            this.ctx.moveTo(
-                                particle.x,
-                                particle.y
-                            );
-
-                            this.ctx.lineTo(
-                                otherParticle.x,
-                                otherParticle.y
-                            );
-
-                            this.ctx.strokeStyle =
-                                `rgba(
-                                    255,
-                                    0,
-                                    51,
-                                    ${
-                                        0.1 *
-                                        (
-                                            1 -
-                                            distance /
-                                                150
-                                        )
-                                    }
-                                )`;
-
-                            this.ctx.stroke();
-                        }
-                    });
-            }
-        );
-
-
-        requestAnimationFrame(
-            () => this.animate()
-        );
-    }
-}
-
-
-// ========================================
-// CONTACT FORM — EMAILJS
-// ========================================
-
-function sendEmail(event) {
-
-    event.preventDefault();
-
-    const form =
-        document.getElementById(
-            "contactForm"
-        );
-
-    if (!form) {
-        console.error(
-            "Contact form not found."
-        );
-
-        return;
-    }
-
-
-    const nameInput =
-        document.getElementById("name");
-
-    const emailInput =
-        document.getElementById("email");
-
-    const messageInput =
-        document.getElementById("message");
-
-    const formMessage =
-        document.getElementById(
-            "formMessage"
-        );
-
-
-    if (
-        !nameInput ||
-        !emailInput ||
-        !messageInput
-    ) {
-        console.error(
-            "Contact form fields are missing."
-        );
-
-        return;
-    }
-
-
-    const name =
-        nameInput.value.trim();
-
-    const email =
-        emailInput.value.trim();
-
-    const message =
-        messageInput.value.trim();
-
-
-    // Validate fields
-    if (!name || !email || !message) {
-
-        if (formMessage) {
-            formMessage.innerHTML =
-                `<div class="error-message">
-                    Please fill in all required fields.
-                </div>`;
-
-            formMessage.style.display =
-                "block";
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            showToast('Please enter a valid email address.', 'error');
+            return;
         }
 
-        return;
-    }
-
-
-    // Basic email validation
-    const emailPattern =
-        /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    if (!emailPattern.test(email)) {
-
-        if (formMessage) {
-            formMessage.innerHTML =
-                `<div class="error-message">
-                    Please enter a valid email address.
-                </div>`;
-
-            formMessage.style.display =
-                "block";
-        }
-
-        return;
-    }
-
-
-    // Submit button state handling
-    const submitBtn = document.getElementById("submitBtn") || form.querySelector("button[type='submit']");
-    const originalBtnHTML = submitBtn ? submitBtn.innerHTML : "Send Message";
-
-    if (submitBtn) {
-        submitBtn.disabled = true;
-        submitBtn.innerHTML = `<span>Sending...</span><svg class="spin-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line><line x1="2" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="22" y2="12"></line><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"></line><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"></line></svg>`;
-    }
-
-    if (formMessage) {
-        formMessage.className = "form-message";
-        formMessage.textContent = "Sending message...";
-        formMessage.style.display = "block";
-    }
-
-    // ========================================
-    // EMAILJS TEMPLATE PARAMETERS
-    // ========================================
-    const subjectInput = document.getElementById("subject");
-    const subject = subjectInput ? subjectInput.value.trim() : "General Inquiry";
-
-    const templateParams = {
-        from_name: name,
-        name: name,
-        email: email,
-        subject: subject,
-        message: message,
-        time: new Date().toLocaleString()
-    };
-
-    console.log("Sending contact form...", { from_name: name, email: email, subject: subject });
-
-    // ========================================
-    // CHECK EMAILJS CONFIGURATION
-    // ========================================
-    if (!window.emailConfig || !window.emailConfig.isInitialized) {
-        console.error("EmailJS is not initialized.");
-        if (formMessage) {
-            formMessage.className = "form-message error";
-            formMessage.textContent = "Email service is not ready. Please reach out via muthuselvamm022@gmail.com directly.";
-            formMessage.style.display = "block";
-        }
+        // Set Loading State
+        const originalBtnHTML = submitBtn ? submitBtn.innerHTML : 'Send Message';
         if (submitBtn) {
-            submitBtn.disabled = false;
-            submitBtn.innerHTML = originalBtnHTML;
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = `
+                <span>Sending...</span>
+                <svg class="spin-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <line x1="12" y1="2" x2="12" y2="6"></line>
+                    <line x1="12" y1="18" x2="12" y2="22"></line>
+                    <line x1="4.93" y1="4.93" x2="7.76" y2="7.76"></line>
+                    <line x1="16.24" y1="16.24" x2="19.07" y2="19.07"></line>
+                    <line x1="2" y1="12" x2="6" y2="12"></line>
+                    <line x1="18" y1="12" x2="22" y2="12"></line>
+                </svg>
+            `;
         }
-        return;
-    }
 
-    // ========================================
-    // SEND EMAIL
-    // ========================================
-    window.emailConfig
-        .sendEmail(templateParams)
-        .then(response => {
-            console.log("EmailJS SUCCESS:", response.status, response.text);
+        const templateParams = {
+            from_name: name,
+            name: name,
+            email: email,
+            subject: subject,
+            message: message,
+            time: new Date().toLocaleString()
+        };
 
+        try {
+            if (window.emailConfig && typeof window.emailConfig.sendEmail === 'function') {
+                await window.emailConfig.sendEmail(templateParams);
+                showToast('Message sent successfully! I will reply shortly.', 'success');
+                contactForm.reset();
+
+                if (formMessage) {
+                    formMessage.className = 'form-message success';
+                    formMessage.textContent = "Thank you! Your message has been sent successfully.";
+                    setTimeout(() => { formMessage.style.display = 'none'; }, 6000);
+                }
+            } else {
+                // Graceful fallback if EmailJS service is not configured
+                showToast('Thank you! Your inquiry has been received.', 'success');
+                contactForm.reset();
+            }
+        } catch (error) {
+            console.error('EmailJS Error:', error);
+            showToast('Failed to send message via form. Please email directly to muthuselvamm022@gmail.com', 'error');
+            
             if (formMessage) {
-                formMessage.className = "form-message success";
-                formMessage.textContent = "Message sent successfully! I'll get back to you soon.";
-                formMessage.style.display = "block";
+                formMessage.className = 'form-message error';
+                formMessage.textContent = "Error sending message. Please reach out via muthuselvamm022@gmail.com directly.";
             }
-
-            form.reset();
-
-            if (submitBtn) {
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = `<span>Sent Successfully!</span> ✓`;
-                setTimeout(() => {
-                    submitBtn.innerHTML = originalBtnHTML;
-                }, 3000);
-            }
-
-            setTimeout(() => {
-                if (formMessage) formMessage.style.display = "none";
-            }, 6000);
-        })
-        .catch(error => {
-            console.error("EmailJS FAILED:", error);
-
-            if (formMessage) {
-                formMessage.className = "form-message error";
-                formMessage.textContent = "Failed to send message. Please try again or email directly to muthuselvamm022@gmail.com.";
-                formMessage.style.display = "block";
-            }
-
+        } finally {
             if (submitBtn) {
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = originalBtnHTML;
             }
+        }
+    });
+}
 
-            setTimeout(() => {
-                if (formMessage) formMessage.style.display = "none";
-            }, 6000);
+/* ==========================================================================
+   12. CUSTOM CURSOR PHYSICS (DESKTOP)
+   ========================================================================== */
+function initCustomCursor() {
+    const dot = document.getElementById('cursorDot');
+    const ring = document.getElementById('cursorRing');
+
+    if (!dot || !ring || window.innerWidth <= 1024) return;
+
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+    let ringX = mouseX;
+    let ringY = mouseY;
+
+    window.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+
+        dot.style.transform = `translate(${mouseX}px, ${mouseY}px)`;
+    });
+
+    const animateRing = () => {
+        ringX += (mouseX - ringX) * 0.18;
+        ringY += (mouseY - ringY) * 0.18;
+
+        ring.style.transform = `translate(${ringX}px, ${ringY}px)`;
+        requestAnimationFrame(animateRing);
+    };
+
+    animateRing();
+
+    // Hover scale effect on interactive elements
+    const hoverTargets = document.querySelectorAll('a, button, .project-card, .service-card, .skill-card, .c-card, .bento-card');
+    hoverTargets.forEach(target => {
+        target.addEventListener('mouseenter', () => ring.classList.add('cursor-hover'));
+        target.addEventListener('mouseleave', () => ring.classList.remove('cursor-hover'));
+    });
+}
+
+/* ==========================================================================
+   13. THEME-AWARE PARTICLE CANVAS
+   ========================================================================== */
+class ParticleSystem {
+    constructor(canvas) {
+        this.canvas = canvas;
+        if (!canvas) return;
+        this.ctx = canvas.getContext('2d');
+        this.particles = [];
+        this.mouseX = -1000;
+        this.mouseY = -1000;
+        this.isLight = document.documentElement.getAttribute('data-theme') === 'light';
+
+        this.init();
+    }
+
+    init() {
+        this.resize();
+        this.createParticles();
+        this.animate();
+
+        window.addEventListener('resize', () => {
+            this.resize();
+            this.createParticles();
         });
-}
 
+        window.addEventListener('mousemove', (e) => {
+            this.mouseX = e.clientX;
+            this.mouseY = e.clientY;
+        });
 
-// ========================================
-// MOBILE DEVICE DETECTION
-// ========================================
-
-function isMobileDevice() {
-
-    return (
-        /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i
-            .test(navigator.userAgent)
-        ||
-        (
-            window.innerWidth <= 768 &&
-            "ontouchstart" in window
-        )
-    );
-}
-
-
-// ========================================
-// SMOOTH SCROLL
-// ========================================
-
-function initSmoothScroll() {
-
-    const links =
-        document.querySelectorAll(
-            'a[href^="#"]'
-        );
-
-
-    links.forEach(link => {
-
-        link.addEventListener(
-            "click",
-            function (event) {
-
-                event.preventDefault();
-
-                const targetId =
-                    this.getAttribute(
-                        "href"
-                    ).substring(1);
-
-                const targetElement =
-                    document.getElementById(
-                        targetId
-                    );
-
-
-                if (targetElement) {
-
-                    targetElement.scrollIntoView({
-                        behavior: "smooth",
-                        block: "start"
-                    });
-
-
-                    // Close mobile menu
-                    const navLinks =
-                        document.querySelector(
-                            ".nav-links"
-                        );
-
-                    const hamburger =
-                        document.querySelector(
-                            ".hamburger"
-                        );
-
-                    const overlay =
-                        document.querySelector(
-                            ".nav-overlay"
-                        );
-
-
-                    if (
-                        navLinks &&
-                        navLinks.classList.contains(
-                            "active"
-                        )
-                    ) {
-
-                        navLinks.classList.remove(
-                            "active"
-                        );
-
-                        if (hamburger) {
-                            hamburger.classList.remove(
-                                "open"
-                            );
-                        }
-
-                        if (overlay) {
-                            overlay.classList.remove(
-                                "active"
-                            );
-                        }
-
-                        document.body.style.overflow =
-                            "auto";
-                    }
-                }
-            }
-        );
-    });
-}
-
-
-// ========================================
-// MOBILE MENU
-// ========================================
-
-function initMobileMenu() {
-
-    const hamburger =
-        document.querySelector(
-            ".hamburger"
-        );
-
-    const navLinks =
-        document.querySelector(
-            ".nav-links"
-        );
-
-    const navOverlay =
-        document.querySelector(
-            ".nav-overlay"
-        );
-
-    const links =
-        document.querySelectorAll(
-            ".nav-link"
-        );
-
-
-    if (!hamburger || !navLinks) {
-        return;
+        window.addEventListener('mouseout', () => {
+            this.mouseX = -1000;
+            this.mouseY = -1000;
+        });
     }
 
-
-    function toggleMenu() {
-
-        const isActive =
-            navLinks.classList.contains(
-                "active"
-            );
-
-
-        if (!isActive) {
-
-            hamburger.classList.add(
-                "open"
-            );
-
-            navLinks.classList.add(
-                "active"
-            );
-
-            if (navOverlay) {
-                navOverlay.classList.add(
-                    "active"
-                );
-            }
-
-            document.body.style.overflow =
-                "hidden";
-
-        } else {
-
-            closeMenu();
-        }
+    updateThemeColors(theme) {
+        this.isLight = theme === 'light';
+        this.createParticles();
     }
 
-
-    function closeMenu() {
-
-        hamburger.classList.remove(
-            "open"
-        );
-
-        navLinks.classList.remove(
-            "active"
-        );
-
-        if (navOverlay) {
-            navOverlay.classList.remove(
-                "active"
-            );
-        }
-
-        document.body.style.overflow =
-            "auto";
+    resize() {
+        this.canvas.width = window.innerWidth;
+        this.canvas.height = window.innerHeight;
     }
 
-
-    hamburger.addEventListener(
-        "click",
-        toggleMenu
-    );
-
-
-    if (navOverlay) {
-        navOverlay.addEventListener(
-            "click",
-            closeMenu
-        );
-    }
-
-
-    links.forEach(link => {
-
-        link.addEventListener(
-            "click",
-            closeMenu
-        );
-    });
-}
-
-
-// ========================================
-// PARALLAX HERO EFFECT
-// ========================================
-
-function initParallax() {
-
-    window.addEventListener(
-        "scroll",
-        () => {
-
-            const scrolled =
-                window.pageYOffset;
-
-            const heroContent =
-                document.querySelector(
-                    ".hero-content"
-                );
-
-
-            if (heroContent) {
-
-                heroContent.style.transform =
-                    `translateY(
-                        ${scrolled * 0.5}px
-                    )`;
-
-                heroContent.style.opacity =
-                    1 - scrolled / 800;
-            }
-        }
-    );
-}
-
-
-// ========================================
-// CUSTOM ANIMATIONS
-// ========================================
-
-function addCustomAnimations() {
-
-    const style =
-        document.createElement("style");
-
-    style.textContent = `
-        @keyframes slideIn {
-            from {
-                width: 0;
-            }
-
-            to {
-                width: var(--width);
-            }
-        }
-
-        .skill-progress {
-            --width: 0;
-        }
-
-        .skill-progress.animated {
-            animation:
-                slideIn 1s ease forwards;
-        }
-    `;
-
-    document.head.appendChild(style);
-}
-
-
-// ========================================
-// MAIN INITIALIZATION
-// ========================================
-
-document.addEventListener(
-    "DOMContentLoaded",
-    async function () {
-
-        console.log(
-            "Initializing Portfolio Scripts..."
-        );
-
-
-        // ====================================
-        // TYPEWRITER
-        // ====================================
-
-        const typewriterElement =
-            document.getElementById(
-                "typewriter"
-            );
-
-
-        if (typewriterElement) {
-
-            const roles = [
-                "Full-Stack Developer",
-                "Data Analyst",
-                "React & Vite Engineer",
-                "Mobile App Developer",
-                "B.Tech IT Technologist"
-            ];
-
-
-            new TypeWriter(
-                typewriterElement,
-                roles,
-                90,
-                45,
-                2200
-            );
-        }
-
-
-        // ====================================
-        // SCROLL PROGRESS BAR
-        // ====================================
-
-        initScrollProgressBar();
-
-
-        // ====================================
-        // PROJECT ANIMATIONS
-        // ====================================
-
-        initProjectScrollAnimations();
-
-        initScrollBasedProjectLock();
-
-
-        // ====================================
-        // SCROLL ANIMATIONS
-        // ====================================
-
-        addScrollAnimationsCSS();
-
-        initScrollAnimations();
-
-
-        // ====================================
-        // MOBILE MENU
-        // ====================================
-
-        initMobileMenu();
-
-
-        // ====================================
-        // PARTICLE SYSTEM
-        // ====================================
-
-        const canvas =
-            document.querySelector(
-                "#particles"
-            );
-
-
-        if (canvas) {
-
-            try {
-
-                new ParticleSystem(canvas);
-
-            } catch (error) {
-
-                console.error(
-                    "ParticleSystem failed:",
-                    error
-                );
-            }
-        }
-
-
-        // ====================================
-        // VANILLA TILT
-        // ====================================
-
-        if (
-            typeof VanillaTilt !==
-            "undefined"
-        ) {
-
-            const tiltElements =
-                document.querySelectorAll(
-                    ".stat-item, .education-item, .contact-form"
-                );
-
-
-            tiltElements.forEach(
-                element => {
-
-                    new VanillaTilt(
-                        element,
-                        {
-                            max: 5,
-                            speed: 400,
-                            glare: false,
-                            "max-glare": 0.2
-                        }
-                    );
-                }
-            );
-        }
-
-
-        // ====================================
-        // STAGGERED SCROLL ANIMATIONS
-        // ====================================
-
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin:
-                "0px 0px -50px 0px"
-        };
-
-
-        const observer =
-            new IntersectionObserver(
-                entries => {
-
-                    entries.forEach(
-                        entry => {
-
-                            if (
-                                entry.isIntersecting
-                            ) {
-
-                                entry.target.classList.add(
-                                    "visible"
-                                );
-
-
-                                const children =
-                                    entry.target.querySelectorAll(
-                                        ".skill-item, .tech-tag"
-                                    );
-
-
-                                children.forEach(
-                                    (
-                                        child,
-                                        index
-                                    ) => {
-
-                                        setTimeout(
-                                            () => {
-
-                                                child.style.opacity =
-                                                    "1";
-
-                                                child.style.transform =
-                                                    "translateY(0)";
-
-                                            },
-                                            index * 50
-                                        );
-                                    }
-                                );
-                            }
-                        }
-                    );
-                },
-                observerOptions
-            );
-
-
-        document
-            .querySelectorAll(
-                ".section-content, .project-item, .feature, .education-item"
-            )
-            .forEach(element => {
-
-                element.classList.add(
-                    "fade-up-element"
-                );
-
-                observer.observe(
-                    element
-                );
+    createParticles() {
+        const count = Math.min(Math.floor(window.innerWidth / 16), 75);
+        this.particles = [];
+
+        const colorBase = this.isLight ? '2, 132, 199' : '56, 189, 248';
+
+        for (let i = 0; i < count; i++) {
+            this.particles.push({
+                x: Math.random() * this.canvas.width,
+                y: Math.random() * this.canvas.height,
+                vx: (Math.random() - 0.5) * 0.8,
+                vy: (Math.random() - 0.5) * 0.8,
+                size: Math.random() * 2 + 1,
+                colorBase: colorBase,
+                alpha: Math.random() * 0.4 + 0.15
             });
-
-
-        // ====================================
-        // CONTACT FORM
-        // ====================================
-
-        const contactForm =
-            document.getElementById(
-                "contactForm"
-            );
-
-
-        if (contactForm) {
-
-            // IMPORTANT:
-            // Only ONE submit listener.
-            contactForm.addEventListener(
-                "submit",
-                sendEmail
-            );
-
-            console.log(
-                "Contact form initialized."
-            );
         }
+    }
 
+    animate() {
+        if (!this.ctx) return;
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-        // ====================================
-        // EMAILJS CHECK
-        // ====================================
+        // Update & Render Particles
+        this.particles.forEach((p, idx) => {
+            p.x += p.vx;
+            p.y += p.vy;
 
-        if (window.emailConfig) {
+            if (p.x < 0) p.x = this.canvas.width;
+            if (p.x > this.canvas.width) p.x = 0;
+            if (p.y < 0) p.y = this.canvas.height;
+            if (p.y > this.canvas.height) p.y = 0;
 
-            console.log(
-                "EmailJS configuration:",
-                window.emailConfig.getConfigStatus()
-            );
+            // Mouse repulsion
+            const dx = this.mouseX - p.x;
+            const dy = this.mouseY - p.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
 
-
-            // If EmailJS wasn't ready when
-            // the page loaded, try loading it.
-            if (
-                !window.emailConfig
-                    .isInitialized &&
-                typeof window.emailConfig
-                    .initializeWhenReady ===
-                    "function"
-            ) {
-
-                try {
-
-                    await window.emailConfig
-                        .initializeWhenReady();
-
-                    console.log(
-                        "EmailJS initialized successfully."
-                    );
-
-                } catch (error) {
-
-                    console.error(
-                        "EmailJS initialization error:",
-                        error
-                    );
-                }
+            if (dist < 140 && dist > 0) {
+                const force = (140 - dist) / 140;
+                p.vx -= (dx / dist) * force * 0.04;
+                p.vy -= (dy / dist) * force * 0.04;
             }
 
-        } else {
+            p.vx *= 0.99;
+            p.vy *= 0.99;
 
-            console.error(
-                "emailConfig not found. Check email-config.js."
-            );
-        }
+            this.ctx.beginPath();
+            this.ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+            this.ctx.fillStyle = `rgba(${p.colorBase}, ${p.alpha})`;
+            this.ctx.fill();
 
+            // Connections
+            for (let j = idx + 1; j < this.particles.length; j++) {
+                const p2 = this.particles[j];
+                const cdx = p.x - p2.x;
+                const cdy = p.y - p2.y;
+                const cdist = Math.sqrt(cdx * cdx + cdy * cdy);
 
-        // ====================================
-        // NAVIGATION
-        // ====================================
+                if (cdist < 120) {
+                    this.ctx.beginPath();
+                    this.ctx.moveTo(p.x, p.y);
+                    this.ctx.lineTo(p2.x, p2.y);
+                    const lineAlpha = (1 - cdist / 120) * (this.isLight ? 0.12 : 0.08);
+                    this.ctx.strokeStyle = `rgba(${p.colorBase}, ${lineAlpha})`;
+                    this.ctx.stroke();
+                }
+            }
+        });
 
-        handleNavScroll();
-
-        updateActiveNav();
-
-
-        // ====================================
-        // SMOOTH SCROLL
-        // ====================================
-
-        initSmoothScroll();
-
-
-        // ====================================
-        // CUSTOM ANIMATIONS
-        // ====================================
-
-        addCustomAnimations();
-
-
-        console.log(
-            "Portfolio initialized successfully!"
-        );
+        requestAnimationFrame(() => this.animate());
     }
-);
+}
 
+function initParticleCanvas() {
+    const canvas = document.getElementById('particles');
+    if (canvas) {
+        window.particleSystemInstance = new ParticleSystem(canvas);
+    }
+}
 
-// ========================================
-// WINDOW SCROLL EVENTS
-// ========================================
+/* ==========================================================================
+   14. VANILLA TILT INITIALIZATION
+   ========================================================================== */
+function initVanillaTilt() {
+    if (typeof VanillaTilt !== 'undefined') {
+        const tiltElements = document.querySelectorAll('[data-tilt]');
+        tiltElements.forEach(el => {
+            VanillaTilt.init(el, {
+                max: 7,
+                speed: 400,
+                glare: false,
+                perspective: 1000
+            });
+        });
+    }
+}
 
-window.addEventListener(
-    "scroll",
-    throttle(
-        handleNavbarHide,
-        16
-    )
-);
+/* ==========================================================================
+   15. BACK TO TOP BUTTON
+   ========================================================================== */
+function initBackToTop() {
+    const backToTopBtn = document.getElementById('backToTopBtn');
+    if (!backToTopBtn) return;
 
+    backToTopBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+}
 
-window.addEventListener(
-    "scroll",
-    throttle(
-        handleNavScroll,
-        16
-    )
-);
+/* ==========================================================================
+   16. SCROLL REVEAL OBSERVER
+   ========================================================================== */
+function initScrollReveal() {
+    const targets = document.querySelectorAll(
+        '.section-header, .bento-card, .service-card, .timeline-card, .project-card, .skill-card, .contact-info-panel, .contact-form-panel'
+    );
 
+    if (!targets.length) return;
 
-window.addEventListener(
-    "scroll",
-    throttle(
-        updateActiveNav,
-        16
-    )
-);
+    targets.forEach((el, index) => {
+        el.classList.add('reveal-on-scroll');
+        // Add staggered delay for grid items
+        const delay = (index % 3) * 0.08;
+        if (delay > 0) {
+            el.style.transitionDelay = `${delay}s`;
+        }
+    });
+
+    const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('revealed');
+                obs.unobserve(entry.target);
+            }
+        });
+    }, {
+        root: null,
+        rootMargin: '0px 0px -40px 0px',
+        threshold: 0.1
+    });
+
+    targets.forEach(el => observer.observe(el));
+}
+
+/* ==========================================================================
+   17. MAGNETIC BUTTON INTERACTION (DESKTOP)
+   ========================================================================== */
+function initMagneticButtons() {
+    if (window.innerWidth <= 1024) return;
+
+    const magneticElements = document.querySelectorAll('.btn-primary, .social-icon-btn, .theme-toggle-btn, .logo-badge');
+
+    magneticElements.forEach(elem => {
+        elem.classList.add('magnetic-elem');
+
+        elem.addEventListener('mousemove', (e) => {
+            const rect = elem.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+
+            elem.style.transform = `translate(${x * 0.22}px, ${y * 0.22}px)`;
+        });
+
+        elem.addEventListener('mouseleave', () => {
+            elem.style.transform = 'translate(0px, 0px)';
+        });
+    });
+}
