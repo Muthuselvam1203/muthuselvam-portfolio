@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initContactForm();
     initCustomCursor();
     initParticleCanvas();
+    initHero3DParallax();
     initVanillaTilt();
     initBackToTop();
     initScrollReveal();
@@ -65,10 +66,10 @@ function initTypeWriter() {
 
     const roles = [
         'Full-Stack Developer',
-        'Data Analyst',
-        'React & Vite Engineer',
-        'Native Android Developer',
-        'B.Tech IT Technologist'
+        'React & Node.js Engineer',
+        'Backend & REST API Architect',
+        'MERN Stack Developer',
+        'Software Solutions Engineer'
     ];
 
     let roleIndex = 0;
@@ -210,7 +211,7 @@ function initMobileNavigation() {
 const projectsData = {
     shopai: {
         title: "ShopAI — AI Product Search & Insights Platform",
-        category: "AI & Web Platform",
+        category: "Full-Stack & AI Web Platform",
         problem: "Consumers spend hours navigating disjointed e-commerce websites, comparing fractured specifications, reading contradictory reviews, and struggling to benchmark fair market prices.",
         solution: "Engineered a unified intelligent web platform that aggregates real-time product listings via external REST APIs, analyzes review sentiment, and algorithmically categorizes products into 'Best Overall', 'Budget Choice', and 'Premium Pick'.",
         features: [
@@ -229,7 +230,7 @@ const projectsData = {
     },
     library: {
         title: "Campus Library & Student Resource System",
-        category: "Mobile & Cloud Architecture",
+        category: "Full-Stack Mobile & Cloud System",
         problem: "Manual library book tracking and paper logs at educational institutions led to lost inventory, delayed return notifications, and lack of real-time visibility for students.",
         solution: "Built a native Android mobile application with a real-time cloud backend using Firebase Firestore, authentication, and Firebase Cloud Messaging (FCM) to automate book issuing, renewal reminders, and catalog queries.",
         features: [
@@ -248,7 +249,7 @@ const projectsData = {
     },
     timetable: {
         title: "AI Timetable & Dynamic Scheduling System",
-        category: "GenAI & Automation",
+        category: "Full-Stack & AI System",
         problem: "Academic timetable scheduling is an NP-hard problem prone to classroom conflicts, faculty schedule clashes, and inefficient institutional resource utilization.",
         solution: "Developed an algorithmic conflict resolution and timetable generation engine leveraging vector similarity indexing and constraint programming to generate collision-free schedules in seconds.",
         features: [
@@ -266,40 +267,40 @@ const projectsData = {
         demo: "https://github.com/Muthuselvam1203"
     },
     healthcare: {
-        title: "Healthcare & Clinical Analytics Platform",
-        category: "Analytics & Business Intelligence",
-        problem: "Healthcare administrators struggle to extract actionable trends from raw hospital admission records, resulting in inefficient resource allocations and longer patient wait times.",
-        solution: "Designed an end-to-end clinical data analytics pipeline in Python and SQL, utilizing Pandas for data cleansing and Power BI for interactive executive monitoring dashboards.",
+        title: "MedPulse — Healthcare Records & Patient Platform",
+        category: "Full-Stack Clinical System",
+        problem: "Healthcare administrators struggle with fragmented patient intake, uncoordinated record indexing, and slow doctor appointment routing.",
+        solution: "Engineered a full-stack clinical management web application with React, Node.js, Express, and relational SQL databases to centralize electronic health records, patient registration, and appointment scheduling.",
         features: [
-            "Exploratory Data Analysis (EDA) on patient diagnosis and recovery timelines",
-            "Automated outlier detection and data cleansing pipelines",
-            "Multi-table relational SQL query optimization with complex joins",
-            "Interactive Power BI dashboard with dynamic parameter slicing",
-            "Bed occupancy forecasting and department workload heatmaps",
-            "Statistical KPI tracking for average length of stay (ALOS)"
+            "Full-stack patient registration & EHR medical records management",
+            "Relational SQL database schema for diagnosis and prescription indexing",
+            "Interactive clinical analytics dashboards and patient recovery metrics",
+            "Secure role-based authentication for medical staff and administrators",
+            "RESTful backend endpoints for real-time appointment scheduling",
+            "Responsive modern UI optimized for clinic terminals and tablets"
         ],
-        techStack: ["Python", "SQL", "Power BI", "Pandas", "NumPy", "EDA", "Data Preprocessing"],
-        challenges: "Handling missing clinical parameters and reconciling heterogeneous data formats. Addressed by building robust imputation pipelines in Python.",
-        outcome: "Provided clear visual metrics enabling healthcare coordinators to identify resource bottlenecks and optimize patient care workflows.",
+        techStack: ["React.js", "Node.js", "Express.js", "SQL / PostgreSQL", "REST APIs", "Modern CSS"],
+        challenges: "Ensuring strict data consistency across multi-table patient histories and prescription records. Solved using atomic SQL transactions and relational constraints.",
+        outcome: "Streamlined patient record retrieval by over 60% with zero data discrepancies across departments.",
         github: "https://github.com/Muthuselvam1203",
         demo: "https://github.com/Muthuselvam1203"
     },
     academic: {
-        title: "Student Academic Performance Predictor",
-        category: "Data Science & Machine Learning",
-        problem: "Educators often identify underperforming students too late in the academic semester, missing the crucial window for targeted tutoring and interventions.",
-        solution: "Constructed an exploratory predictive analytics model that correlates attendance, continuous assessment scores, and study habits to forecast final grades and flag at-risk students early.",
+        title: "EduPredict — Academic Performance & Grade Engine",
+        category: "Full-Stack & Predictive System",
+        problem: "Educators identify underperforming students too late in the academic semester due to disconnected grading spreadsheets and static reports.",
+        solution: "Built a full-stack predictive web platform combining a reactive React frontend, Node.js API backend, and Python statistical regression services to forecast final grades from continuous attendance and assessment data.",
         features: [
-            "Multivariate correlation analysis and feature importance ranking",
-            "Statistical regression modeling to project final semester performance",
-            "Early warning alert flags for students scoring below threshold metrics",
-            "Tableau visual storytelling dashboards for faculty and mentor reviews",
-            "Segmented cohort analysis based on attendance and assignment completion",
-            "Automated data preprocessing scripts built with NumPy and Pandas"
+            "Interactive student dashboard with dynamic GPA & grade forecasting",
+            "REST API integration between Node.js and Python statistical services",
+            "Automated early-warning signals for at-risk course modules",
+            "Visual grade breakdown charts with interactive metric filters",
+            "Exportable academic performance summaries and faculty notes",
+            "Modular component architecture with responsive mobile-ready views"
         ],
-        techStack: ["Python", "Tableau", "Scikit-Learn", "Pandas", "NumPy", "Statistical Analysis"],
-        challenges: "Preventing model bias due to imbalanced historical assessment datasets. Handled through stratified cross-validation and feature scaling.",
-        outcome: "Empowered faculty mentors to identify at-risk students with over 85% early prediction accuracy.",
+        techStack: ["Python", "React.js", "Node.js", "Scikit-Learn", "REST APIs", "Vite"],
+        challenges: "Bridging synchronous Python predictive scripts with asynchronous Node/React web clients. Implemented structured JSON microservice endpoints with request caching.",
+        outcome: "Empowered students and faculty mentors to identify grade risks with over 85% early prediction accuracy.",
         github: "https://github.com/Muthuselvam1203",
         demo: "https://github.com/Muthuselvam1203"
     }
@@ -760,7 +761,7 @@ class ParticleSystem {
         const count = Math.min(Math.floor(window.innerWidth / 16), 75);
         this.particles = [];
 
-        const colorBase = this.isLight ? '2, 132, 199' : '56, 189, 248';
+        const colorBase = this.isLight ? '229, 9, 20' : '255, 30, 30';
 
         for (let i = 0; i < count; i++) {
             this.particles.push({
@@ -928,4 +929,234 @@ function initMagneticButtons() {
             elem.style.transform = 'translate(0px, 0px)';
         });
     });
+}
+
+/* ==========================================================================
+   18. INTERACTIVE 3D MOUSE PARALLAX & LAYERED HERO ENGINE
+   ========================================================================== */
+function initHero3DParallax() {
+    const stage = document.getElementById('heroParallaxStage');
+    const heroSection = document.getElementById('home');
+    if (!stage || !heroSection) return;
+
+    // Check for prefers-reduced-motion
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) return;
+
+    let isMobile = window.innerWidth <= 640;
+    let isTablet = window.innerWidth > 640 && window.innerWidth <= 1024;
+
+    window.addEventListener('resize', () => {
+        isMobile = window.innerWidth <= 640;
+        isTablet = window.innerWidth > 640 && window.innerWidth <= 1024;
+        if (isMobile) {
+            resetToRestingState();
+        }
+    }, { passive: true });
+
+    if (isMobile) return;
+
+    // Physics & State
+    let isHovering = false;
+    let isRunning = false;
+    let rafId = null;
+
+    // Target values
+    let targetRotX = 0;
+    let targetRotY = 0;
+    let targetTransX = 0;
+    let targetTransY = 0;
+    let targetBgTransX = 0;
+    let targetBgTransY = 0;
+    let targetBadgeTransX = 0;
+    let targetBadgeTransY = 0;
+    let targetScale = 1;
+    let targetSpotlightX = 50;
+    let targetSpotlightY = 50;
+    let targetSpotlightOpacity = 0;
+    let targetSheenOpacity = 0;
+    let targetSheenAngle = 115;
+
+    // Current interpolated values
+    let currRotX = 0;
+    let currRotY = 0;
+    let currTransX = 0;
+    let currTransY = 0;
+    let currBgTransX = 0;
+    let currBgTransY = 0;
+    let currBadgeTransX = 0;
+    let currBadgeTransY = 0;
+    let currScale = 1;
+    let currSpotlightX = 50;
+    let currSpotlightY = 50;
+    let currSpotlightOpacity = 0;
+    let currSheenOpacity = 0;
+    let currSheenAngle = 115;
+
+    const LERP_FACTOR = 0.085;
+
+    function lerp(start, end, factor) {
+        return start + (end - start) * factor;
+    }
+
+    function resetToRestingState() {
+        targetRotX = 0;
+        targetRotY = 0;
+        targetTransX = 0;
+        targetTransY = 0;
+        targetBgTransX = 0;
+        targetBgTransY = 0;
+        targetBadgeTransX = 0;
+        targetBadgeTransY = 0;
+        targetScale = 1;
+        targetSpotlightOpacity = 0;
+        targetSheenOpacity = 0;
+        targetSheenAngle = 115;
+
+        if (!isRunning && !isMobile) {
+            isRunning = true;
+            rafId = requestAnimationFrame(animateParallax);
+        }
+    }
+
+    function updateParallax(e) {
+        if (isMobile) return;
+
+        const rect = stage.getBoundingClientRect();
+        const stageCenterX = rect.left + rect.width / 2;
+        const stageCenterY = rect.top + rect.height / 2;
+
+        // Normalized offsets (-1 to +1 within stage bounds)
+        const halfWidth = rect.width / 2;
+        const halfHeight = rect.height / 2;
+        const normX = Math.max(-1.4, Math.min(1.4, (e.clientX - stageCenterX) / halfWidth));
+        const normY = Math.max(-1.4, Math.min(1.4, (e.clientY - stageCenterY) / halfHeight));
+
+        const maxRot = isTablet ? 2.4 : 4.8;
+        const maxTrans = isTablet ? 8 : 15;
+        const maxBgTrans = isTablet ? 10 : 20;
+        const maxBadgeTrans = isTablet ? 12 : 24;
+
+        // 3D Rotations (Rotate around X based on vertical delta, Y based on horizontal delta)
+        targetRotX = -normY * maxRot;
+        targetRotY = normX * maxRot;
+
+        // Layer 3 (Foreground Card: ~0.50x movement)
+        targetTransX = normX * maxTrans;
+        targetTransY = normY * maxTrans;
+
+        // Layer 1 (Background Silhouette: ~0.15x movement with subtle counter-depth)
+        targetBgTransX = -normX * maxBgTrans;
+        targetBgTransY = -normY * maxBgTrans;
+
+        // Badges: ~0.70x elevated depth movement
+        targetBadgeTransX = normX * maxBadgeTrans;
+        targetBadgeTransY = normY * maxBadgeTrans;
+
+        // Hover scale
+        targetScale = 1.02;
+
+        // Layer 2: Dynamic Cursor Spotlight & Sheen Highlight
+        const spotX = ((e.clientX - rect.left) / rect.width) * 100;
+        const spotY = ((e.clientY - rect.top) / rect.height) * 100;
+        targetSpotlightX = Math.max(0, Math.min(100, spotX));
+        targetSpotlightY = Math.max(0, Math.min(100, spotY));
+        targetSpotlightOpacity = 1;
+
+        targetSheenAngle = 115 + normX * 25;
+        targetSheenOpacity = 0.65;
+
+        if (!isRunning) {
+            isRunning = true;
+            rafId = requestAnimationFrame(animateParallax);
+        }
+    }
+
+    function animateParallax() {
+        currRotX = lerp(currRotX, targetRotX, LERP_FACTOR);
+        currRotY = lerp(currRotY, targetRotY, LERP_FACTOR);
+        currTransX = lerp(currTransX, targetTransX, LERP_FACTOR);
+        currTransY = lerp(currTransY, targetTransY, LERP_FACTOR);
+        currBgTransX = lerp(currBgTransX, targetBgTransX, LERP_FACTOR);
+        currBgTransY = lerp(currBgTransY, targetBgTransY, LERP_FACTOR);
+        currBadgeTransX = lerp(currBadgeTransX, targetBadgeTransX, LERP_FACTOR);
+        currBadgeTransY = lerp(currBadgeTransY, targetBadgeTransY, LERP_FACTOR);
+        currScale = lerp(currScale, targetScale, LERP_FACTOR);
+        currSpotlightX = lerp(currSpotlightX, targetSpotlightX, LERP_FACTOR);
+        currSpotlightY = lerp(currSpotlightY, targetSpotlightY, LERP_FACTOR);
+        currSpotlightOpacity = lerp(currSpotlightOpacity, targetSpotlightOpacity, LERP_FACTOR);
+        currSheenOpacity = lerp(currSheenOpacity, targetSheenOpacity, LERP_FACTOR);
+        currSheenAngle = lerp(currSheenAngle, targetSheenAngle, LERP_FACTOR);
+
+        // Apply batch updates to CSS custom properties on stage
+        stage.style.setProperty('--hero-rot-x', `${currRotX.toFixed(3)}deg`);
+        stage.style.setProperty('--hero-rot-y', `${currRotY.toFixed(3)}deg`);
+        stage.style.setProperty('--hero-trans-x', `${currTransX.toFixed(2)}px`);
+        stage.style.setProperty('--hero-trans-y', `${currTransY.toFixed(2)}px`);
+        stage.style.setProperty('--hero-scale', `${currScale.toFixed(4)}`);
+        stage.style.setProperty('--bg-trans-x', `${currBgTransX.toFixed(2)}px`);
+        stage.style.setProperty('--bg-trans-y', `${currBgTransY.toFixed(2)}px`);
+        stage.style.setProperty('--badge-trans-x', `${currBadgeTransX.toFixed(2)}px`);
+        stage.style.setProperty('--badge-trans-y', `${currBadgeTransY.toFixed(2)}px`);
+        stage.style.setProperty('--spotlight-x', `${currSpotlightX.toFixed(1)}%`);
+        stage.style.setProperty('--spotlight-y', `${currSpotlightY.toFixed(1)}%`);
+        stage.style.setProperty('--spotlight-opacity', `${currSpotlightOpacity.toFixed(3)}`);
+        stage.style.setProperty('--sheen-angle', `${currSheenAngle.toFixed(1)}deg`);
+        stage.style.setProperty('--sheen-opacity', `${currSheenOpacity.toFixed(3)}`);
+
+        // Check if values have reached resting threshold when not hovering
+        if (!isHovering) {
+            const deltaRot = Math.abs(currRotX) + Math.abs(currRotY);
+            const deltaTrans = Math.abs(currTransX) + Math.abs(currTransY) + Math.abs(currBgTransX) + Math.abs(currBgTransY);
+            const deltaOpacity = currSpotlightOpacity + currSheenOpacity;
+            const deltaScale = Math.abs(currScale - 1);
+
+            if (deltaRot < 0.005 && deltaTrans < 0.05 && deltaOpacity < 0.005 && deltaScale < 0.0005) {
+                // Snap to exact resting state and stop RAF loop to save resources
+                stage.style.setProperty('--hero-rot-x', '0deg');
+                stage.style.setProperty('--hero-rot-y', '0deg');
+                stage.style.setProperty('--hero-trans-x', '0px');
+                stage.style.setProperty('--hero-trans-y', '0px');
+                stage.style.setProperty('--hero-scale', '1');
+                stage.style.setProperty('--bg-trans-x', '0px');
+                stage.style.setProperty('--bg-trans-y', '0px');
+                stage.style.setProperty('--badge-trans-x', '0px');
+                stage.style.setProperty('--badge-trans-y', '0px');
+                stage.style.setProperty('--spotlight-opacity', '0');
+                stage.style.setProperty('--sheen-opacity', '0');
+
+                currRotX = 0; currRotY = 0;
+                currTransX = 0; currTransY = 0;
+                currBgTransX = 0; currBgTransY = 0;
+                currBadgeTransX = 0; currBadgeTransY = 0;
+                currScale = 1;
+                currSpotlightOpacity = 0;
+                currSheenOpacity = 0;
+
+                isRunning = false;
+                rafId = null;
+                return;
+            }
+        }
+
+        rafId = requestAnimationFrame(animateParallax);
+    }
+
+    // Event Listeners on hero section & stage for broad and smooth tracking
+    heroSection.addEventListener('pointerenter', (e) => {
+        if (isMobile) return;
+        isHovering = true;
+        updateParallax(e);
+    }, { passive: true });
+
+    heroSection.addEventListener('pointermove', (e) => {
+        if (isMobile) return;
+        isHovering = true;
+        updateParallax(e);
+    }, { passive: true });
+
+    heroSection.addEventListener('pointerleave', () => {
+        isHovering = false;
+        resetToRestingState();
+    }, { passive: true });
 }
