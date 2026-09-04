@@ -66,10 +66,8 @@ function initTypeWriter() {
 
     const roles = [
         'Full-Stack Developer',
-        'React & Node.js Engineer',
-        'Backend & REST API Architect',
-        'MERN Stack Developer',
-        'Software Solutions Engineer'
+        ' UI Designer',
+        'Information Technology Student'
     ];
 
     let roleIndex = 0;
