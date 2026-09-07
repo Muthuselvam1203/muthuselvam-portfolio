@@ -36,7 +36,7 @@ function initThemeSwitcher() {
     // Check localStorage or system preference
     const savedTheme = localStorage.getItem('theme');
     const systemPrefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
-    
+
     const initialTheme = savedTheme ? savedTheme : (systemPrefersLight ? 'light' : 'dark');
     setTheme(initialTheme);
 
@@ -49,7 +49,7 @@ function initThemeSwitcher() {
     function setTheme(theme) {
         document.documentElement.setAttribute('data-theme', theme);
         localStorage.setItem('theme', theme);
-        
+
         // Notify Particle System if active
         if (window.particleSystemInstance) {
             window.particleSystemInstance.updateThemeColors(theme);
@@ -435,7 +435,7 @@ function initProjectFiltering() {
 
             projectCards.forEach(card => {
                 const category = card.getAttribute('data-category') || '';
-                
+
                 if (filterValue === 'all' || category.includes(filterValue)) {
                     card.style.display = 'flex';
                     setTimeout(() => {
@@ -655,7 +655,7 @@ function initContactForm() {
         } catch (error) {
             console.error('EmailJS Error:', error);
             showToast('Failed to send message via form. Please email directly to muthuselvamm022@gmail.com', 'error');
-            
+
             if (formMessage) {
                 formMessage.className = 'form-message error';
                 formMessage.textContent = "Error sending message. Please reach out via muthuselvamm022@gmail.com directly.";
@@ -1158,3 +1158,4 @@ function initHero3DParallax() {
         resetToRestingState();
     }, { passive: true });
 }
+
