@@ -1,1662 +1,417 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark" style="scroll-behavior: smooth;">
+<html lang="en" style="scroll-behavior: smooth;">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Muthuselvam K | Full-Stack Developer</title>
-    <meta name="description"
-        content="Portfolio of Muthuselvam K — Full-Stack Developer engineering scalable, modern web applications, robust Node.js/Express REST APIs, databases, and responsive user interfaces.">
-    <meta name="keywords"
-        content="Muthuselvam K, Full Stack Developer, Software Developer, React, Node.js, Express, MongoDB, REST APIs, JavaScript, B.Tech IT">
-    <meta name="author" content="Muthuselvam K">
-
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://muthuselvam1203.github.io/">
-    <meta property="og:title" content="Muthuselvam K | Full-Stack Developer">
-    <meta property="og:description" content="Explore high-impact full-stack web applications and scalable software systems built by Muthuselvam K.">
-    <meta property="og:image" content="hero-img.png">
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:title" content="Muthuselvam K | Full-Stack Developer">
-    <meta property="twitter:description"
-        content="Explore high-impact full-stack web applications and scalable software systems built by Muthuselvam K.">
-    <meta property="twitter:image" content="hero-img.png">
-
-    <!-- Favicon SVG -->
-    <link rel="icon" type="image/svg+xml"
-        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='25' fill='%23ff1e1e'/><text x='50%' y='55%' dominant-baseline='central' text-anchor='middle' fill='white' font-family='sans-serif' font-weight='900' font-size='46'>MK</text></svg>">
-
-    <!-- Stylesheets -->
+    <title>Muthuselvam's Blog</title>
     <link rel="stylesheet" href="style.css">
-
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
         rel="stylesheet">
-
-    <!-- Vanilla Tilt from CDN -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.1/vanilla-tilt.min.js"></script>
+    <script src="tilt.js"></script>
 </head>
 
 <body>
-    <!-- Top Scroll Progress Indicator -->
-    <div class="scroll-progress-container" aria-hidden="true">
-        <div class="scroll-progress-bar" id="scrollProgressBar"></div>
-    </div>
+    <canvas id="particles"></canvas>
 
-    <!-- Custom Cursor (Desktop) -->
-    <div class="custom-cursor-dot" id="cursorDot" aria-hidden="true"></div>
-    <div class="custom-cursor-ring" id="cursorRing" aria-hidden="true"></div>
-
-    <!-- Ambient Particles Canvas -->
-    <canvas id="particles" aria-hidden="true"></canvas>
-
-    <!-- Floating Glass Navbar -->
-    <nav class="navbar" id="navbar" role="navigation" aria-label="Main Navigation">
+    <nav class="navbar">
         <div class="nav-content">
-            <a href="#home" class="logo" aria-label="Muthuselvam K Home">
-                <div class="logo-badge">KM</div>
-                <div class="logo-name">MUTHUSELVAM<span class="logo-dot">.</span></div>
-            </a>
-
-            <div class="nav-links" id="navLinks">
-                <a href="#home" class="nav-link active"><span>Home</span></a>
-                <a href="#about" class="nav-link"><span>About</span></a>
-                <a href="#services" class="nav-link"><span>Services</span></a>
-                <a href="#experience" class="nav-link"><span>Experience</span></a>
-                <a href="#projects" class="nav-link"><span>Projects</span></a>
-                <a href="#skills" class="nav-link"><span>Skills</span></a>
-                <a href="#contact" class="nav-link"><span>Contact</span></a>
-                <a href="#contact" class="nav-cta-btn mobile-only">Let's Connect ⚡</a>
+            <div class="logo">MK</div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
             </div>
-
-            <div class="nav-actions">
-                <!-- Theme Switcher Button -->
-                <button class="theme-toggle-btn" id="themeToggleBtn" aria-label="Toggle Dark / Light Theme"
-                    title="Toggle Theme">
-                    <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="5"></circle>
-                        <line x1="12" y1="1" x2="12" y2="3"></line>
-                        <line x1="12" y1="21" x2="12" y2="23"></line>
-                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                        <line x1="1" y1="12" x2="3" y2="12"></line>
-                        <line x1="21" y1="12" x2="23" y2="12"></line>
-                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                    </svg>
-                    <svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                    </svg>
-                </button>
-
-                <a href="#contact" class="nav-cta-btn desktop-only">
-                    <span>Let's Talk</span>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-                        stroke-linecap="round" stroke-linejoin="round">
-                        <line x1="5" y1="12" x2="19" y2="12"></line>
-                        <polyline points="12 5 19 12 12 19"></polyline>
-                    </svg>
-                </a>
-
-                <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
+            <div class="nav-links">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#projects" class="nav-link">Projects</a>
+                <a href="#skills" class="nav-link">Skills</a>
+                <a href="#contact" class="nav-link">Contact</a>
             </div>
-
-            <div class="nav-overlay" id="navOverlay" aria-hidden="true"></div>
+            <div class="nav-overlay"></div>
         </div>
     </nav>
 
-    <main>
-        <!-- ========================================
-             HERO SECTION
-             ======================================== -->
-        <section id="home" class="section hero-section">
-            <!-- Ambient Glow Effects -->
-            <div class="ambient-glow glow-1"></div>
-            <div class="ambient-glow glow-2"></div>
+    <section id="home" class="section hero-section">
+        <div class="hero-container">
+            <div class="hero-image-wrapper">
+                <img src="hero-img.png" alt="Muthuselvam K" class="hero-img">
+            </div>
+            <div class="hero-content">
+                <h1 class="hero-title">Hello, I'm <br><span class="highlight-name">MUTHUSELVAM K</span></h1>
+                <p class="hero-subtitle">
+                    <span id="typewriter"></span>
+                </p>
+                <div class="hero-description">
+                    <p>I build responsive web applications and transform data into meaningful insights using modern technologies and analytical tools</p>
+                </div>
+                <div class="hero-buttons">
+                    <a href="#projects" class="btn btn-primary">View Projects</a>
+                    <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+                </div>
+            </div>
+        </div>
+    </section>
 
-            <div class="hero-container">
-                <div class="hero-image-col">
-                    <div class="hero-parallax-stage" id="heroParallaxStage">
-                        <!-- Layer 1: Background Silhouette Depth Layer -->
-                        <div class="hero-layer-bg-silhouette" id="heroBgSilhouette" aria-hidden="true">
-                            <img src="hero-img.png" alt="" class="hero-bg-silhouette-img">
+    <section id="about" class="section about-section scroll-section">
+        <div class="section-content">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-grid">
+                <div class="about-text">
+                    <p>I am a passionate B.Tech Information Technology student with a strong interest in Web Development and Data Analytics. I enjoy building responsive, user-focused web applications while leveraging data to discover meaningful insights and support informed decision-making.
+                       My technical interests include HTML, CSS, JavaScript, React.js, Python, SQL, Excel, Pandas, and Power BI. I continuously strengthen my problem-solving skills by working on practical projects and exploring modern technologies.
+                       I am currently focused on developing industry-ready skills and gaining real-world experience, with the goal of becoming a versatile technology professional who can combine software development, data analysis, and business-focused solutions to create meaningful impact.</p>
+                    <div class="education">
+                        <h3>Education</h3>
+                        <div class="education-item">
+                            <h4>JP COLLEGE OF ENGINEERING</h4>
+                            <p>B.Tech in Information Technology</p>
+                            <p class="period">July 2023 - Jun 2027 | GPA: 7.85/10.0</p>
                         </div>
+                    </div>
 
-                        <!-- Layer 2: Dynamic Spotlight & Ambient Glow -->
-                        <div class="hero-layer-spotlight" id="heroSpotlightLayer" aria-hidden="true">
-                            <div class="hero-mouse-spotlight"></div>
-                            <div class="hero-ambient-glow-core"></div>
+                    <div class="experience-timeline-section education" style="margin-top: 50px;">
+                        <h3>Experience</h3>
+                        <div class="timeline">
+
+    <!-- CADD Expert -->
+    <div class="timeline-item">
+        <span class="timeline-dot"></span>
+
+        <div class="timeline-content">
+            <div class="timeline-header">
+                <h4>CADD Expert</h4>
+                <span class="timeline-date">July 18, 2026 - August 18, 2026</span>
+            </div>
+
+            <span class="role">Data Analyst Intern</span>
+
+            <p class="description">
+                Acquired hands-on experience in collecting, cleaning, and preprocessing
+                raw datasets using Python and SQL to remove duplicates, handle missing
+                values, and ensure data accuracy for analytical processing.
+
+                Learned to perform Exploratory Data Analysis (EDA) to identify key
+                patterns, trends, and correlations within complex data, driving
+                data-informed insights for business decision-making.
+
+                Gained proficiency in creating interactive dashboards and reports using
+                tools like Power BI and Tableau to visually communicate critical metrics
+                and actionable findings to non-technical stakeholders.
+
+                Developed statistical analysis techniques and utilized SQL queries to
+                extract data, write complex joins, and generate structured datasets
+                that support business performance monitoring.
+            </p>
+        </div>
+    </div>
+
+
+    <!-- Vinsup Infotech -->
+    <div class="timeline-item">
+        <span class="timeline-dot"></span>
+
+        <div class="timeline-content">
+            <div class="timeline-header">
+                <h4>Vinsup Infotech</h4>
+                <span class="timeline-date">July 22, 2025 - July 28, 2025</span>
+            </div>
+
+            <span class="role">Android Development Intern</span>
+
+            <p class="description">
+                Gained practical knowledge in designing and developing responsive
+                user interfaces (UI) for Android applications using XML layouts and
+                standard design principles to improve overall user experience.
+
+                Acquired hands-on experience in implementing core Android application
+                architecture, managing activity lifecycles, and handling seamless
+                navigation between different application screens.
+
+                Learned how to integrate application logic using Java/Kotlin, connect
+                front-end user interfaces with dynamic data sources, and manage local
+                storage for smooth app performance.
+
+                Developed functional mobile app modules by utilizing essential tools
+                like Android Studio, debugging runtime errors, and understanding
+                end-to-end mobile app deployment workflows.
+            </p>
+        </div>
+    </div>
+
+
+    <!-- Campus Connection -->
+    <div class="timeline-item">
+        <span class="timeline-dot"></span>
+
+        <div class="timeline-content">
+            <div class="timeline-header">
+                <h4>Campus Connection</h4>
+                <span class="timeline-date">July 7, 2025 - July 18, 2025</span>
+            </div>
+
+            <span class="role">React.js Intern</span>
+
+            <p class="description">
+                Gained practical hands-on experience in modern frontend development
+                using React JS paired with Vite, focusing on building high-performance,
+                responsive single-page user interfaces with fast build times and
+                efficient module bundling.
+
+                Developed a strong foundational understanding of core React concepts,
+                including component-based architecture, state management, props
+                handling, and functional hooks to design dynamic and interactive
+                UI components.
+
+                Acquired exposure to the broader MERN stack ecosystem, learning how
+                modern React applications seamlessly integrate with backend services,
+                RESTful APIs, and databases for full-stack data flow.
+
+                Applied industry-standard development workflows and modern build tools
+                to write modular, maintainable code, debug front-end components, and
+                optimize application routing and user experience.
+            </p>
+        </div>
+    </div>
+
+</div>
+
+    <section id="projects" class="section projects-section scroll-section">
+        <div class="section-content">
+            <h2 class="section-title">Projects</h2>
+            <div class="projects-showcase">
+                <div class="project-item">
+                    <div class="project-content">
+                        <div class="project-header">
+                            <h3>ShopAI - AI-Powered Product Search Platform</h3>
+                            <span class="project-category">Web Platform</span>
                         </div>
-
-                        <!-- Layer 3: 3D Perspective Card Frame & Sharp Foreground -->
-                        <div class="hero-card-frame" id="heroCardFrame">
-                            <div class="hero-glow-ring"></div>
-                            <div class="hero-glass-surface"></div>
-
-                            <div class="hero-image-inner" id="heroImageInner">
-                                <div class="hero-img-depth-shadow" aria-hidden="true"></div>
-                                <img src="hero-img.png" alt="Muthuselvam K - Full-Stack Developer" class="hero-img"
-                                    id="heroForegroundImg" loading="eager">
-                                <div class="hero-img-sheen" aria-hidden="true"></div>
-                            </div>
+                        <p class="project-description">An AI-powered product discovery and recommendation platform that searches products from multiple external APIs, analyzes product relevance, price, quality and customer feedback, and provides intelligent recommendations such as Best Overall, Best Budget and Best Premium. The application includes advanced product search, category exploration, AI insights and responsive product cards.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">Node.js</span>
+                            <span class="tech-tag">Express</span>
+                            <span class="tech-tag">REST API</span>
+                        </div>
+                        <div class="project-features">
+                            <div class="feature">Multi-API Product Search</div>
+                            <div class="feature">Intelligent Product Categorization</div>
+                            <div class="feature">AI Insights & Discoveries</div>
+                        </div>
+                        <div class="project-actions">
+                            <a href="https://eduhub-corp.onrender.com/dashboard" class="btn btn-primary">View
+                                Project</a>
+                            <a href="https://github.com/Muthuselvam1203" class="btn btn-secondary">GitHub</a>
                         </div>
                     </div>
                 </div>
 
-                <div class="hero-content-col">
-                    <div class="hero-status-pill">
-                        <span class="status-pulse-dot"></span>
-                        <span>Available for Opportunities</span>
-                    </div>
-
-                    <h1 class="hero-title">
-                        Hello, I'm <br>
-                        <span class="hero-gradient-name">MUTHUSELVAM K</span>
-                    </h1>
-
-                    <div class="hero-typewriter-box">
-                        <span class="typewriter-prefix">I am a&nbsp;</span>
-                        <span id="typewriter" class="typewriter-text"></span>
-                        <span class="typewriter-cursor"></span>
-                    </div>
-
-                    <p class="hero-description">
-                        B.Tech Information Technology undergraduate engineering scalable, high-performance <strong>Full-Stack Web
-                            Applications</strong>, robust <strong>RESTful APIs</strong>, and modern responsive user interfaces with end-to-end reliability.
-                    </p>
-
-                    <div class="hero-cta-group">
-                        <a href="#projects" class="btn btn-primary btn-glow">
-                            <span>View My Work</span>
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                                <line x1="5" y1="12" x2="19" y2="12"></line>
-                                <polyline points="12 5 19 12 12 19"></polyline>
-                            </svg>
-                        </a>
-                        <button type="button" class="btn btn-secondary btn-glass" id="resumeHeroBtn">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                                <polyline points="14 2 14 8 20 8"></polyline>
-                                <line x1="12" y1="18" x2="12" y2="12"></line>
-                                <line x1="9" y1="15" x2="15" y2="15"></line>
-                            </svg>
-                            <span>Download Resume</span>
-                        </button>
-                        <a href="#contact" class="btn btn-outline">
-                            <span>Let's Talk</span>
-                        </a>
-
-                        <div class="hero-social-links">
-                            <a href="https://github.com/Muthuselvam1203" target="_blank" rel="noopener noreferrer"
-                                class="social-icon-btn" aria-label="GitHub Profile" title="GitHub Profile">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                                    <path
-                                        d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
-                                </svg>
-                            </a>
-                            <a href="https://www.linkedin.com/in/muthuselvam-k-049112300?utm_source=share_via&utm_content=profile&utm_medium=member_android"
-                                target="_blank" rel="noopener noreferrer" class="social-icon-btn"
-                                aria-label="LinkedIn Profile" title="LinkedIn Profile">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                                    <path
-                                        d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
-                                </svg>
-                            </a>
+                <div class="project-item">
+                    <div class="project-content">
+                        <div class="project-header">
+                            <h3>Library & Student Resource System</h3>
+                            <span class="project-category">Mobile Application</span>
+                        </div>
+                        <p class="project-description">A full-stack mobile and web platform designed to streamline academic resource distribution and library operations. Built with Java and Android Studio on the frontend, supported by Firebase and Firestore for scalable backend database management. It includes custom user authentication and Firebase Cloud Messaging (FCM) for real-time alerts. Ideal for educational institutions seeking an end-to-end digital transformation for resource tracking.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Java</span>
+                            <span class="tech-tag">Android Studio</span>
+                            <span class="tech-tag">Firebase</span>
+                            <span class="tech-tag">Authentication</span>
+                            <span class="tech-tag">FCM</span>
+                            <span class="tech-tag">Firestore</span>
+                        </div>
+                        <div class="project-features">
+                            <div class="feature">Book & Resource Tracking</div>
+                            <div class="feature">AI-Powered Assistance</div>
+                            <div class="feature">Real-time Push Notifications</div>
+                        </div>
+                        <div class="project-actions">
+                            <a href="https://hello-tutor.netlify.app/" class="btn btn-primary">View Project</a>
+                            <a href="https://github.com/Muthuselvam1203" class="btn btn-secondary">GitHub</a>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Stats Strip with Live Counters -->
-                    <div class="hero-stats-strip">
-                        <div class="hero-stat-card">
-                            <div class="stat-num-wrapper">
-                                <span class="stat-num counter" data-target="3">0</span><span class="stat-plus">+</span>
-                            </div>
-                            <span class="stat-text">Internships Completed</span>
+                <div class="project-item">
+                    <div class="project-content">
+                        <div class="project-header">
+                            <h3>AI Timetable Management System</h3>
+                            <span class="project-category">Web Platform</span>
                         </div>
-                        <div class="stat-separator"></div>
-                        <div class="hero-stat-card">
-                            <div class="stat-num-wrapper">
-                                <span class="stat-num counter" data-target="5">0</span><span class="stat-plus">+</span>
-                            </div>
-                            <span class="stat-text">Full-Stack Systems Built</span>
+                        <p class="project-description">A smart personal assistant leveraging Generative AI for
+                            streamlined daily organization. Created a next-generation productivity tool that replaces
+                            traditional database queries with vector similarity search. Utilized LLMs to instantly
+                            analyze and tag content, while implementing a scalable vector store architecture that allows
+                            the system to "understand" and retrieve information based on conceptual similarity,
+                            significantly outperforming standard text-matching algorithms.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">React</span>
+                            <span class="tech-tag">Node.js</span>
+                            <span class="tech-tag">Firebase</span>
+                            <span class="tech-tag">Authentication</span>
                         </div>
-                        <div class="stat-separator"></div>
-                        <div class="hero-stat-card">
-                            <div class="stat-num-wrapper">
-                                <span class="stat-num">7.85</span><span class="stat-plus">/10</span>
-                            </div>
-                            <span class="stat-text">B.Tech IT CGPA</span>
+                        <div class="project-features">
+                            <div class="feature">Automated Conflict Resolution</div>
+                            <div class="feature">Dynamic Resource Allocation</div>
+                            <div class="feature">Real-time Sync & Updates</div>
+                        </div>
+                        <div class="project-actions">
+                            <a href="https://timetable-ai.onrender.com/" class="btn btn-primary">View Project</a>
+                            <a href="https://github.com/Muthuselvam1203" class="btn btn-secondary">GitHub</a>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <!-- Scroll Down Indicator -->
-            <a href="#about" class="hero-scroll-indicator" aria-label="Scroll to About Section">
-                <div class="mouse-icon">
-                    <div class="mouse-wheel"></div>
+    <section id="skills" class="section skills-section scroll-section">
+        <div class="section-content">
+            <h2 class="section-title">Technical Skills</h2>
+
+           <section class="skills-section">
+    <div class="skills-grid">
+
+        <!-- Programming & DSA -->
+        <div class="skill-card">
+            <div class="skill-card-header">
+                <h3>Programming & DSA</h3>
+            </div>
+
+            <div class="skill-items">
+                <span class="skill-badge">Python</span>
+                <span class="skill-badge">JavaScript</span>
+                <span class="skill-badge">Data Structures & Algorithms</span>
+            </div>
+        </div>
+
+        <!-- Frontend -->
+        <div class="skill-card">
+            <div class="skill-card-header">
+                <h3>Frontend</h3>
+            </div>
+
+            <div class="skill-items">
+                <span class="skill-badge">HTML</span>
+                <span class="skill-badge">CSS</span>
+                <span class="skill-badge">JavaScript</span>
+                <span class="skill-badge">React.js (Vite)</span>
+            </div>
+        </div>
+
+        <!-- Backend -->
+        <div class="skill-card">
+            <div class="skill-card-header">
+                <h3>Backend</h3>
+            </div>
+
+            <div class="skill-items">
+                <span class="skill-badge">Node.js</span>
+                <span class="skill-badge">Express.js</span>
+            </div>
+        </div>
+
+        <!-- Databases -->
+        <div class="skill-card">
+            <div class="skill-card-header">
+                <h3>Databases</h3>
+            </div>
+
+            <div class="skill-items">
+                <span class="skill-badge">SQL</span>
+                <span class="skill-badge">MongoDB</span>
+            </div>
+        </div>
+
+        <!-- Tools -->
+        <div class="skill-card">
+            <div class="skill-card-header">
+                <h3>Tools</h3>
+            </div>
+
+            <div class="skill-items">
+                <span class="skill-badge">Git</span>
+                <span class="skill-badge">GitHub</span>
+                <span class="skill-badge">Visual Studio Code</span>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+    <section id="contact" class="section contact-section scroll-section">
+        <div class="earth-container">
+            <div class="earth"></div>
+        </div>
+        <div class="section-content">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Let's Connect</h3>
+                    <p>I'm always interested in hearing about new opportunities and exciting projects. Feel free to
+                        reach out!</p>
+
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <span class="contact-label">Email:</span>
+                            <a href="mailto:muthuselvamm022@gmail.com">muthuselvamm022@gmail.com</a>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">Phone:</span>
+                            <a href="tel:+919345993773">+91 9363386350</a>
+                        </div>
+                        <div class="contact-item">
+                            <span class="contact-label">Location:</span>
+                            <span>Tenkasi, Tamil Nadu</span>
+                        </div>
+                    </div>
+
+                    <div class="social-links">
+                        <a href="https://www.linkedin.com/in/muthuselvam-k-049112300?utm_source=share_via&utm_content=profile&utm_medium=member_android" target="_blank"
+                            class="social-link">LinkedIn</a>
+                        <a href="https://github.com/Muthuselvam1203" target="_blank" class="social-link">GitHub</a>
+                    </div>
                 </div>
-                <span>Explore Journey</span>
-            </a>
-        </section>
 
-        <!-- ========================================
-             ABOUT SECTION (BENTO GRID)
-             ======================================== -->
-        <section id="about" class="section about-section scroll-section">
-            <div class="section-content">
-                <div class="section-header">
-                    <div class="section-tag">
-                        <span class="tag-icon">⚡</span>
-                        <span>ABOUT ME</span>
-                    </div>
-                    <h2 class="section-title">Engineering Scalable Web Architecture & User Experience</h2>
-                    <p class="section-subtitle">A disciplined Software Developer building high-speed frontends, resilient backends, and modular database architectures.</p>
-                </div>
-
-                <div class="bento-grid">
-                    <!-- Bento Card 1: Main Story Bio -->
-                    <div class="bento-card bento-story">
-                        <div class="bento-glow"></div>
-                        <div class="card-header-flex">
-                            <div class="card-pill">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                                    <circle cx="12" cy="7" r="4"></circle>
-                                </svg>
-                                <span>Background & Vision</span>
-                            </div>
+                <div class="contact-form">
+                    <form id="contactForm" onsubmit="sendEmail(event)">
+                        <div class="form-group">
+                            <label for="name">Your Name</label>
+                            <input type="text" id="name" name="name" placeholder="Your Name" required>
                         </div>
-                        <h3 class="bento-card-title">Engineering with Purpose & Full-Stack Precision</h3>
-                        <p class="bento-text">
-                            I am an Information Technology undergraduate at <strong>JP College of Engineering</strong>
-                            specializing in <strong>Full-Stack Web Development</strong>, modern <strong>frontend architectures</strong>, and scalable <strong>backend RESTful APIs</strong>. I focus on engineering reactive user interfaces, optimizing database query performance, and implementing robust server-side logic.
-                        </p>
-                        <p class="bento-text">
-                            Whether architecting React single-page applications with Vite, creating secure REST APIs with Node.js & Express, or modeling schemas in MongoDB and SQL, I thrive at the intersection of performance, design aesthetics, and structured code.
-                        </p>
-                        <div class="story-tags">
-                            <span class="story-tag">⚡ Fast Learner</span>
-                            <span class="story-tag">🚀 Full-Stack Precision</span>
-                            <span class="story-tag">🎨 Modern UI/UX</span>
-                            <span class="story-tag">🛠️ Clean Architecture</span>
+                        <div class="form-group">
+                            <label for="email">Your Email</label>
+                            <input type="email" id="email" name="email" placeholder="Your Email" required>
                         </div>
-                    </div>
-
-                    <!-- Bento Card 2: Education Card -->
-                    <div class="bento-card bento-edu">
-                        <div class="bento-glow"></div>
-                        <div class="card-header-flex">
-                            <div class="card-pill">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
-                                    <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
-                                </svg>
-                                <span>Education</span>
-                            </div>
-                            <span class="verified-pill">
-                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="3">
-                                    <polyline points="20 6 9 17 4 12"></polyline>
-                                </svg>
-                                Verified
-                            </span>
+                        <div class="form-group">
+                            <label for="message">Your Message</label>
+                            <textarea id="message" name="message" placeholder="Your Message" rows="5"
+                                required></textarea>
                         </div>
-
-                        <div class="edu-institution-box">
-                            <h4 class="edu-inst-name">JP COLLEGE OF ENGINEERING</h4>
-                            <p class="edu-degree">B.Tech in Information Technology</p>
-                            <div class="edu-meta">
-                                <span class="edu-period">July 2023 — June 2027</span>
-                                <span class="edu-status">Final Year</span>
-                            </div>
-                        </div>
-
-                        <div class="gpa-container">
-                            <div class="gpa-ring">
-                                <span class="gpa-score">7.85</span>
-                                <span class="gpa-scale">/10.0</span>
-                            </div>
-                            <div class="gpa-info">
-                                <div class="gpa-title">Cumulative Grade Point Average</div>
-                                <div class="gpa-desc">Consistently strong academic performance in core computing, software engineering & algorithms.</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Bento Card 3: Core Disciplines / Pillars -->
-                    <div class="bento-card bento-pillars">
-                        <div class="bento-glow"></div>
-                        <div class="card-header-flex">
-                            <div class="card-pill">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
-                                    <polyline points="2 17 12 22 22 17"></polyline>
-                                    <polyline points="2 12 12 17 22 12"></polyline>
-                                </svg>
-                                <span>Core Focus Areas</span>
-                            </div>
-                        </div>
-
-                        <div class="pillars-grid">
-                            <div class="pillar-item">
-                                <div class="pillar-icon pillar-icon-web">
-                                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <circle cx="12" cy="12" r="10"></circle>
-                                        <line x1="2" y1="12" x2="22" y2="12"></line>
-                                        <path
-                                            d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z">
-                                        </path>
-                                    </svg>
-                                </div>
-                                <div class="pillar-content">
-                                    <h4>Frontend Architecture</h4>
-                                    <p>Building high-speed reactive interfaces and single-page apps with React.js, Vite, JavaScript (ES6+), and modern CSS systems.</p>
-                                </div>
-                            </div>
-
-                            <div class="pillar-item">
-                                <div class="pillar-icon pillar-icon-data">
-                                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
-                                        <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
-                                        <line x1="6" y1="6" x2="6.01" y2="6"></line>
-                                        <line x1="6" y1="18" x2="6.01" y2="18"></line>
-                                    </svg>
-                                </div>
-                                <div class="pillar-content">
-                                    <h4>Backend & REST APIs</h4>
-                                    <p>Architecting scalable server-side systems with Node.js and Express.js, structured routing, JWT auth, and middleware pipelines.</p>
-                                </div>
-                            </div>
-
-                            <div class="pillar-item">
-                                <div class="pillar-icon pillar-icon-mobile">
-                                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
-                                        <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
-                                        <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
-                                    </svg>
-                                </div>
-                                <div class="pillar-content">
-                                    <h4>Databases & Cloud Systems</h4>
-                                    <p>Designing optimized schemas in MongoDB, relational SQL databases, Firestore, and integrating scalable cloud storage services.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                    </form>
+                    <div id="formMessage" class="form-message"></div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- ========================================
-             SERVICES / WHAT I DO SECTION
-             ======================================== -->
-        <section id="services" class="section services-section scroll-section">
-            <div class="section-content">
-                <div class="section-header">
-                    <div class="section-tag">
-                        <span class="tag-icon">🛠️</span>
-                        <span>CAPABILITIES</span>
-                    </div>
-                    <h2 class="section-title">What I Bring to the Table</h2>
-                    <p class="section-subtitle">Comprehensive technical solutions ranging from high-performance web
-                        frontends to scalable backends and database architectures.</p>
-                </div>
-
-                <div class="services-grid">
-                    <!-- Service 1 -->
-                    <div class="service-card">
-                        <div class="service-card-glow"></div>
-                        <div class="service-icon-box service-icon-web">
-                            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="12" cy="12" r="10"></circle>
-                                <line x1="2" y1="12" x2="22" y2="12"></line>
-                                <path
-                                    d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z">
-                                </path>
-                            </svg>
-                        </div>
-                        <h3 class="service-title">Full-Stack Web Development</h3>
-                        <p class="service-desc">
-                            Crafting high-speed single-page applications with React.js, Vite, and Node.js. Delivering
-                            responsive designs, clean modular architecture, and instant interactive states.
-                        </p>
-                        <div class="service-tags">
-                            <span>React.js</span>
-                            <span>Vite</span>
-                            <span>JavaScript</span>
-                            <span>CSS3</span>
-                        </div>
-                    </div>
-
-                    <!-- Service 2 -->
-                    <div class="service-card">
-                        <div class="service-card-glow"></div>
-                        <div class="service-icon-box service-icon-api">
-                            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
-                                <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
-                                <line x1="6" y1="6" x2="6.01" y2="6"></line>
-                                <line x1="6" y1="18" x2="6.01" y2="18"></line>
-                            </svg>
-                        </div>
-                        <h3 class="service-title">RESTful API Architecture</h3>
-                        <p class="service-desc">
-                            Architecting scalable server-side REST APIs with Node.js and Express. Designing middleware,
-                            authentication systems, secure endpoints, and third-party service integrations.
-                        </p>
-                        <div class="service-tags">
-                            <span>Node.js</span>
-                            <span>Express.js</span>
-                            <span>REST APIs</span>
-                        </div>
-                    </div>
-
-                    <!-- Service 3 -->
-                    <div class="service-card">
-                        <div class="service-card-glow"></div>
-                        <div class="service-icon-box service-icon-db">
-                            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
-                                <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
-                                <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
-                            </svg>
-                        </div>
-                        <h3 class="service-title">Database Design & Optimization</h3>
-                        <p class="service-desc">
-                            Structuring optimized relational schemas in SQL and NoSQL collections in MongoDB and
-                            Firestore. Ensuring data integrity, performant indexing, and real-time synchronization.
-                        </p>
-                        <div class="service-tags">
-                            <span>SQL</span>
-                            <span>MongoDB</span>
-                            <span>Firestore</span>
-                        </div>
-                    </div>
-
-                    <!-- Service 4 -->
-                    <div class="service-card">
-                        <div class="service-card-glow"></div>
-                        <div class="service-icon-box service-icon-web">
-                            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
-                                <polyline points="2 17 12 22 22 17"></polyline>
-                                <polyline points="2 12 12 17 22 12"></polyline>
-                            </svg>
-                        </div>
-                        <h3 class="service-title">Modern Frontend Engineering</h3>
-                        <p class="service-desc">
-                            Developing sleek, interactive, and mobile-first user interfaces with component modularity, state management, custom CSS, and micro-animations.
-                        </p>
-                        <div class="service-tags">
-                            <span>React</span>
-                            <span>Component UI</span>
-                            <span>Modern CSS</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ========================================
-             EXPERIENCE TIMELINE SECTION
-             ======================================== -->
-        <section id="experience" class="section experience-section scroll-section">
-            <div class="section-content">
-                <div class="section-header">
-                    <div class="section-tag">
-                        <span class="tag-icon">💼</span>
-                        <span>CAREER MILESTONES</span>
-                    </div>
-                    <h2 class="section-title">Internship Experience</h2>
-                    <p class="section-subtitle">Hands-on industry exposure in Full-Stack Web Development, Mobile Systems, and Database Engineering.</p>
-                </div>
-
-                <div class="timeline-container">
-                    <div class="timeline-track-line"></div>
-
-                    <!-- Internship 1: CADD Expert -->
-                    <div class="timeline-card">
-                        <div class="timeline-node">
-                            <div class="node-inner"></div>
-                        </div>
-                        <div class="timeline-content-card">
-                            <div class="timeline-top-row">
-                                <div class="company-badge-wrap">
-                                    <div class="company-logo-pill">CE</div>
-                                    <div>
-                                        <h3 class="company-name">CADD Expert</h3>
-                                        <span class="role-badge">Software & Database Engineering Intern</span>
-                                    </div>
-                                </div>
-                                <div class="timeline-date-chip">
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                        stroke-width="2">
-                                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                                        <line x1="16" y1="2" x2="16" y2="6"></line>
-                                        <line x1="8" y1="2" x2="8" y2="6"></line>
-                                        <line x1="3" y1="10" x2="21" y2="10"></line>
-                                    </svg>
-                                    <span>July 18, 2026 – August 18, 2026</span>
-                                </div>
-                            </div>
-
-                            <ul class="timeline-bullet-list">
-                                <li>Engineered and optimized relational database schemas and complex multi-table SQL queries for performant data retrieval and storage integrity.</li>
-                                <li>Developed automated data ingestion and preprocessing pipelines in <strong>Python</strong> and <strong>SQL</strong> to sanitize inputs and eliminate anomalies.</li>
-                                <li>Constructed interactive operational monitoring dashboards and visual reports to communicate key application metrics with stakeholders.</li>
-                                <li>Formulated statistical analysis algorithms and backend query filters for scalable performance monitoring.</li>
-                            </ul>
-
-                            <div class="timeline-tech-tags">
-                                <span class="t-tag">SQL</span>
-                                <span class="t-tag">Python</span>
-                                <span class="t-tag">Database Design</span>
-                                <span class="t-tag">Query Optimization</span>
-                                <span class="t-tag">Backend Pipelines</span>
-                                <span class="t-tag">Data Processing</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Internship 2: Vinsup Infotech -->
-                    <div class="timeline-card">
-                        <div class="timeline-node">
-                            <div class="node-inner"></div>
-                        </div>
-                        <div class="timeline-content-card">
-                            <div class="timeline-top-row">
-                                <div class="company-badge-wrap">
-                                    <div class="company-logo-pill">VI</div>
-                                    <div>
-                                        <h3 class="company-name">Vinsup Infotech</h3>
-                                        <span class="role-badge">Android & Mobile Solutions Intern</span>
-                                    </div>
-                                </div>
-                                <div class="timeline-date-chip">
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                        stroke-width="2">
-                                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                                        <line x1="16" y1="2" x2="16" y2="6"></line>
-                                        <line x1="8" y1="2" x2="8" y2="6"></line>
-                                        <line x1="3" y1="10" x2="21" y2="10"></line>
-                                    </svg>
-                                    <span>July 22, 2025 – July 28, 2025</span>
-                                </div>
-                            </div>
-
-                            <ul class="timeline-bullet-list">
-                                <li>Architected and engineered responsive mobile applications in <strong>Java</strong> utilizing clean UI paradigms and Android SDK.</li>
-                                <li>Implemented efficient activity and fragment lifecycles, structured state persistence, and seamless navigation flows across views.</li>
-                                <li>Connected front-end user interfaces with dynamic backend endpoints and configured local SQLite/room caching systems.</li>
-                                <li>Utilized <strong>Android Studio</strong> for profiling, debugging runtime errors, and mastering mobile deployment workflows.</li>
-                            </ul>
-
-                            <div class="timeline-tech-tags">
-                                <span class="t-tag">Android Studio</span>
-                                <span class="t-tag">Java</span>
-                                <span class="t-tag">XML Layouts</span>
-                                <span class="t-tag">Activity Lifecycle</span>
-                                <span class="t-tag">Local Storage</span>
-                                <span class="t-tag">Mobile Architecture</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Internship 3: Campus Connection -->
-                    <div class="timeline-card">
-                        <div class="timeline-node">
-                            <div class="node-inner"></div>
-                        </div>
-                        <div class="timeline-content-card">
-                            <div class="timeline-top-row">
-                                <div class="company-badge-wrap">
-                                    <div class="company-logo-pill">CC</div>
-                                    <div>
-                                        <h3 class="company-name">Campus Connection</h3>
-                                        <span class="role-badge">React.js & Full-Stack Web Intern</span>
-                                    </div>
-                                </div>
-                                <div class="timeline-date-chip">
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                        stroke-width="2">
-                                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                                        <line x1="16" y1="2" x2="16" y2="6"></line>
-                                        <line x1="8" y1="2" x2="8" y2="6"></line>
-                                        <line x1="3" y1="10" x2="21" y2="10"></line>
-                                    </svg>
-                                    <span>July 7, 2025 – July 18, 2025</span>
-                                </div>
-                            </div>
-
-                            <ul class="timeline-bullet-list">
-                                <li>Gained hands-on experience in modern frontend development using <strong>React.js paired with Vite</strong>, building high-speed responsive single-page interfaces with instant HMR.</li>
-                                <li>Deepened understanding of core React paradigms: component modularity, state management, props drilling mitigation, and custom functional hooks.</li>
-                                <li>Gained practical exposure to the <strong>MERN stack</strong>, integrating client components with RESTful backend APIs and databases.</li>
-                                <li>Applied industry-standard Git version control workflows and modern build tools to produce clean, maintainable frontend architecture.</li>
-                            </ul>
-
-                            <div class="timeline-tech-tags">
-                                <span class="t-tag">React.js</span>
-                                <span class="t-tag">Vite</span>
-                                <span class="t-tag">JavaScript (ES6+)</span>
-                                <span class="t-tag">REST APIs</span>
-                                <span class="t-tag">MERN Stack</span>
-                                <span class="t-tag">Component Architecture</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ========================================
-             PROJECTS SECTION
-             ======================================== -->
-        <section id="projects" class="section projects-section scroll-section">
-            <div class="section-content">
-                <div class="section-header">
-                    <div class="section-tag">
-                        <span class="tag-icon">🚀</span>
-                        <span>PORTFOLIO SHOWCASE</span>
-                    </div>
-                    <h2 class="section-title">Projects & Systems Built</h2>
-                    <p class="section-subtitle">Explore a curated collection of production-grade full-stack web applications, AI tools, mobile systems, and data platforms.</p>
-                </div>
-
-                <!-- Project Category Filters -->
-                <div class="project-filters" role="tablist" aria-label="Filter Projects">
-                    <button class="filter-btn active" data-filter="all" role="tab" aria-selected="true">
-                        <span>All Projects</span>
-                        <span class="filter-count">5</span>
-                    </button>
-                    <button class="filter-btn" data-filter="web" role="tab" aria-selected="false">
-                        <span>Full-Stack & Web</span>
-                        <span class="filter-count">3</span>
-                    </button>
-                    <button class="filter-btn" data-filter="ai" role="tab" aria-selected="false">
-                        <span>AI & Automation</span>
-                        <span class="filter-count">2</span>
-                    </button>
-                
-                </div>
-
-                <div class="projects-grid" id="projectsGrid">
-                    <!-- Project 1: ShopAI -->
-                    <div class="project-card" data-category="web ai" data-project-id="shopai">
-                        <div class="project-card-glow"></div>
-                        <div class="project-card-top">
-                            <div class="window-controls">
-                                <span class="w-dot dot-red"></span>
-                                <span class="w-dot dot-yellow"></span>
-                                <span class="w-dot dot-green"></span>
-                            </div>
-                            <span class="project-category-badge badge-ai">
-                                <span class="badge-dot"></span>
-                                Full-Stack & AI
-                            </span>
-                        </div>
-
-                        <div class="project-body">
-                            <div class="project-icon-box project-icon-ai">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path
-                                        d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83">
-                                    </path>
-                                </svg>
-                            </div>
-                            <h3 class="project-title">ShopAI — AI Product Search & Insights Platform</h3>
-                            <p class="project-desc">
-                                An AI-powered product discovery and recommendation engine that aggregates real-time data
-                                across multiple external REST APIs, analyzes product pricing benchmarks, and delivers
-                                automated category intelligence (Best Overall, Budget, Premium).
-                            </p>
-
-                            <div class="project-highlights">
-                                <div class="highlight-item">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                        stroke-width="2.5">
-                                        <polyline points="20 6 9 17 4 12"></polyline>
-                                    </svg>
-                                    <span>Multi-API real-time product aggregation</span>
-                                </div>
-                                <div class="highlight-item">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                        stroke-width="2.5">
-                                        <polyline points="20 6 9 17 4 12"></polyline>
-                                    </svg>
-                                    <span>Automated sentiment & quality categorization</span>
-                                </div>
-                                <div class="highlight-item">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                        stroke-width="2.5">
-                                        <polyline points="20 6 9 17 4 12"></polyline>
-                                    </svg>
-                                    <span>Reactive search filters & AI-backed recommendations</span>
-                                </div>
-                            </div>
-
-                            <div class="project-tech-stack">
-                                <span class="p-tech">React.js</span>
-                                <span class="p-tech">Node.js</span>
-                                <span class="p-tech">Express</span>
-                                <span class="p-tech">REST APIs</span>
-                                <span class="p-tech">Tailored CSS</span>
-                            </div>
-
-                            <div class="project-card-footer">
-                                <a href="https://github.com/Muthuselvam1203" target="_blank" rel="noopener noreferrer"
-                                    class="btn btn-secondary btn-sm" aria-label="View ShopAI on GitHub">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                                        <path
-                                            d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
-                                    </svg>
-                                    <span>GitHub</span>
-                                </a>
-                                <button type="button" class="btn btn-primary btn-sm view-details-btn"
-                                    data-project-id="shopai">
-                                    <span>Explore Details</span>
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                        stroke-width="2.5">
-                                        <line x1="7" y1="17" x2="17" y2="7"></line>
-                                        <polyline points="7 7 17 7 17 17"></polyline>
-                                    </svg>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Project 2: Campus Library & Student Resource System -->
-                    <div class="project-card" data-category="mobile" data-project-id="library">
-                        <div class="project-card-glow"></div>
-                        <div class="project-card-top">
-                            <div class="window-controls">
-                                <span class="w-dot dot-red"></span>
-                                <span class="w-dot dot-yellow"></span>
-                                <span class="w-dot dot-green"></span>
-                            </div>
-                            <span class="project-category-badge badge-mobile">
-                                <span class="badge-dot dot-blue"></span>
-                                Mobile & Cloud
-                            </span>
-                        </div>
-
-                        <div class="project-body">
-                            <div class="project-icon-box project-icon-mobile">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
-                                    <line x1="12" y1="18" x2="12.01" y2="18"></line>
-                                </svg>
-                            </div>
-                            <h3 class="project-title">Campus Library & Student Resource System</h3>
-                            <p class="project-desc">
-                                A full-stack native Android and cloud management platform that streamlines academic
-                                resource allocation, catalog indexing, and real-time student notifications using
-                                Firebase Firestore and Cloud Messaging (FCM).
-                            </p>
-
-                            <div class="project-highlights">
-                                <div class="highlight-item">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                        stroke-width="2.5">
-                                        <polyline points="20 6 9 17 4 12"></polyline>
-                                    </svg>
-                                    <span>Real-time book & resource tracking system</span>
-                                </div>
-                                <div class="highlight-item">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                        stroke-width="2.5">
-                                        <polyline points="20 6 9 17 4 12"></polyline>
-                                    </svg>
-                                    <span>Firebase Cloud Messaging (FCM) push alerts</span>
-                                </div>
-                                <div class="highlight-item">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                        stroke-width="2.5">
-                                        <polyline points="20 6 9 17 4 12"></polyline>
-                                    </svg>
-                                    <span>Secure student & admin role-based authentication</span>
-                                </div>
-                            </div>
-
-                            <div class="project-tech-stack">
-                                <span class="p-tech">Java</span>
-                                <span class="p-tech">Android Studio</span>
-                                <span class="p-tech">Firebase</span>
-                                <span class="p-tech">Firestore</span>
-                                <span class="p-tech">FCM</span>
-                            </div>
-
-                            <div class="project-card-footer">
-                                <a href="https://github.com/Muthuselvam1203" target="_blank" rel="noopener noreferrer"
-                                    class="btn btn-secondary btn-sm" aria-label="View Campus Library on GitHub">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                                        <path
-                                            d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
-                                    </svg>
-                                    <span>GitHub</span>
-                                </a>
-                                <button type="button" class="btn btn-primary btn-sm view-details-btn"
-                                    data-project-id="library">
-                                    <span>Explore Details</span>
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                        stroke-width="2.5">
-                                        <line x1="7" y1="17" x2="17" y2="7"></line>
-                                        <polyline points="7 7 17 7 17 17"></polyline>
-                                    </svg>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Project 3: AI Timetable Management System -->
-                    <div class="project-card" data-category="web ai" data-project-id="timetable">
-                        <div class="project-card-glow"></div>
-                        <div class="project-card-top">
-                            <div class="window-controls">
-                                <span class="w-dot dot-red"></span>
-                                <span class="w-dot dot-yellow"></span>
-                                <span class="w-dot dot-green"></span>
-                            </div>
-                            <span class="project-category-badge badge-genai">
-                                <span class="badge-dot dot-purple"></span>
-                                Full-Stack & AI
-                            </span>
-                        </div>
-
-                        <div class="project-body">
-                            <div class="project-icon-box project-icon-genai">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <circle cx="12" cy="12" r="3"></circle>
-                                    <path
-                                        d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z">
-                                    </path>
-                                </svg>
-                            </div>
-                            <h3 class="project-title">AI Timetable & Dynamic Scheduling System</h3>
-                            <p class="project-desc">
-                                A smart academic assistant leveraging algorithmic constraint satisfaction and vector
-                                storage to automatically resolve scheduling conflicts, allocate shared institutional
-                                resources, and synchronize changes in real-time.
-                            </p>
-
-                            <div class="project-highlights">
-                                <div class="highlight-item">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                        stroke-width="2.5">
-                                        <polyline points="20 6 9 17 4 12"></polyline>
-                                    </svg>
-                                    <span>Automated conflict detection & timetable resolution</span>
-                                </div>
-                                <div class="highlight-item">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                        stroke-width="2.5">
-                                        <polyline points="20 6 9 17 4 12"></polyline>
-                                    </svg>
-                                    <span>Dynamic classroom & faculty allocation algorithm</span>
-                                </div>
-                                <div class="highlight-item">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                        stroke-width="2.5">
-                                        <polyline points="20 6 9 17 4 12"></polyline>
-                                    </svg>
-                                    <span>Vector-based similarity indexing for intelligent querying</span>
-                                </div>
-                            </div>
-
-                            <div class="project-tech-stack">
-                                <span class="p-tech">React.js</span>
-                                <span class="p-tech">Node.js</span>
-                                <span class="p-tech">Firebase</span>
-                                <span class="p-tech">Vector Search</span>
-                                <span class="p-tech">REST API</span>
-                            </div>
-
-                            <div class="project-card-footer">
-                                <a href="https://github.com/Muthuselvam1203" target="_blank" rel="noopener noreferrer"
-                                    class="btn btn-secondary btn-sm" aria-label="View AI Timetable on GitHub">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                                        <path
-                                            d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
-                                    </svg>
-                                    <span>GitHub</span>
-                                </a>
-                                <button type="button" class="btn btn-primary btn-sm view-details-btn"
-                                    data-project-id="timetable">
-                                    <span>Explore Details</span>
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                        stroke-width="2.5">
-                                        <line x1="7" y1="17" x2="17" y2="7"></line>
-                                        <polyline points="7 7 17 7 17 17"></polyline>
-                                    </svg>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Project 4: MedPulse Healthcare Platform -->
-                    <div class="project-card" data-category="web" data-project-id="healthcare">
-                        <div class="project-card-glow"></div>
-                        <div class="project-card-top">
-                            <div class="window-controls">
-                                <span class="w-dot dot-red"></span>
-                                <span class="w-dot dot-yellow"></span>
-                                <span class="w-dot dot-green"></span>
-                            </div>
-                            <span class="project-category-badge badge-data">
-                                <span class="badge-dot dot-green"></span>
-                                Full-Stack System
-                            </span>
-                        </div>
-
-                        <div class="project-body">
-                            <div class="project-icon-box project-icon-data">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
-                                </svg>
-                            </div>
-                            <h3 class="project-title">MedPulse — Healthcare Records & Patient Platform</h3>
-                            <p class="project-desc">
-                                A full-stack clinical management web application designed to track patient recovery timelines, manage electronic health records (EHR), and coordinate doctor appointments using React, Node.js, Express, and relational SQL databases.
-                            </p>
-
-                            <div class="project-highlights">
-                                <div class="highlight-item">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                        stroke-width="2.5">
-                                        <polyline points="20 6 9 17 4 12"></polyline>
-                                    </svg>
-                                    <span>Full-stack patient registration & electronic health records</span>
-                                </div>
-                                <div class="highlight-item">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                        stroke-width="2.5">
-                                        <polyline points="20 6 9 17 4 12"></polyline>
-                                    </svg>
-                                    <span>Relational SQL schemas for medical history & prescription indexing</span>
-                                </div>
-                                <div class="highlight-item">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                        stroke-width="2.5">
-                                        <polyline points="20 6 9 17 4 12"></polyline>
-                                    </svg>
-                                    <span>Interactive dashboard with clinical charts & analytics</span>
-                                </div>
-                            </div>
-
-                            <div class="project-tech-stack">
-                                <span class="p-tech">React.js</span>
-                                <span class="p-tech">Node.js</span>
-                                <span class="p-tech">Express</span>
-                                <span class="p-tech">SQL / PostgreSQL</span>
-                                <span class="p-tech">REST APIs</span>
-                            </div>
-
-                            <div class="project-card-footer">
-                                <a href="https://github.com/Muthuselvam1203" target="_blank" rel="noopener noreferrer"
-                                    class="btn btn-secondary btn-sm" aria-label="View Healthcare Analytics on GitHub">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                                        <path
-                                            d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
-                                    </svg>
-                                    <span>GitHub</span>
-                                </a>
-                                <button type="button" class="btn btn-primary btn-sm view-details-btn"
-                                    data-project-id="healthcare">
-                                    <span>Explore Details</span>
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                        stroke-width="2.5">
-                                        <line x1="7" y1="17" x2="17" y2="7"></line>
-                                        <polyline points="7 7 17 7 17 17"></polyline>
-                                    </svg>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Project 5: EduPredict Academic Performance Engine -->
-                    <div class="project-card" data-category="web ai" data-project-id="academic">
-                        <div class="project-card-glow"></div>
-                        <div class="project-card-top">
-                            <div class="window-controls">
-                                <span class="w-dot dot-red"></span>
-                                <span class="w-dot dot-yellow"></span>
-                                <span class="w-dot dot-green"></span>
-                            </div>
-                            <span class="project-category-badge badge-data">
-                                <span class="badge-dot dot-yellow"></span>
-                                Full-Stack & ML
-                            </span>
-                        </div>
-
-                        <div class="project-body">
-                            <div class="project-icon-box project-icon-data">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M18 20V10"></path>
-                                    <path d="M12 20V4"></path>
-                                    <path d="M6 20v-6"></path>
-                                </svg>
-                            </div>
-                            <h3 class="project-title">EduPredict — Academic Performance & Grade Engine</h3>
-                            <p class="project-desc">
-                                A full-stack predictive analytics platform analyzing attendance trends and internal assessment scores to calculate semester grades and generate early academic intervention recommendations.
-                            </p>
-
-                            <div class="project-highlights">
-                                <div class="highlight-item">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                        stroke-width="2.5">
-                                        <polyline points="20 6 9 17 4 12"></polyline>
-                                    </svg>
-                                    <span>Full-stack analytics interface with interactive student dashboards</span>
-                                </div>
-                                <div class="highlight-item">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                        stroke-width="2.5">
-                                        <polyline points="20 6 9 17 4 12"></polyline>
-                                    </svg>
-                                    <span>Predictive statistical regression models integrated via REST API</span>
-                                </div>
-                                <div class="highlight-item">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                        stroke-width="2.5">
-                                        <polyline points="20 6 9 17 4 12"></polyline>
-                                    </svg>
-                                    <span>Automated reporting & targeted grade improvement signals</span>
-                                </div>
-                            </div>
-
-                            <div class="project-tech-stack">
-                                <span class="p-tech">Python</span>
-                                <span class="p-tech">React.js</span>
-                                <span class="p-tech">Node.js</span>
-                                <span class="p-tech">Scikit-Learn</span>
-                                <span class="p-tech">REST APIs</span>
-                            </div>
-
-                            <div class="project-card-footer">
-                                <a href="https://github.com/Muthuselvam1203" target="_blank" rel="noopener noreferrer"
-                                    class="btn btn-secondary btn-sm" aria-label="View Academic Predictor on GitHub">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                                        <path
-                                            d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
-                                    </svg>
-                                    <span>GitHub</span>
-                                </a>
-                                <button type="button" class="btn btn-primary btn-sm view-details-btn"
-                                    data-project-id="academic">
-                                    <span>Explore Details</span>
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                        stroke-width="2.5">
-                                        <line x1="7" y1="17" x2="17" y2="7"></line>
-                                        <polyline points="7 7 17 7 17 17"></polyline>
-                                    </svg>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ========================================
-             SKILLS & TECH STACK SECTION
-             ======================================== -->
-        <section id="skills" class="section skills-section scroll-section">
-            <div class="section-content">
-                <div class="section-header">
-                    <div class="section-tag">
-                        <span class="tag-icon">⚡</span>
-                        <span>CORE EXPERTISE</span>
-                    </div>
-                    <h2 class="section-title">Technical Skills & Arsenal</h2>
-                    <p class="section-subtitle">Comprehensive proficiencies spanning modern full-stack web architecture, backend APIs, databases, and engineering workflows.</p>
-                </div>
-
-                <div class="skills-grid">
-                    <!-- Category 1: Frontend Development -->
-                    <div class="skill-card">
-                        <div class="skill-card-glow"></div>
-                        <div class="skill-card-header">
-                            <div class="skill-cat-icon icon-frontend">
-                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <polygon points="12 2 2 7 12 12 22 7 12 2"></polygon>
-                                    <polyline points="2 17 12 22 22 17"></polyline>
-                                    <polyline points="2 12 12 17 22 12"></polyline>
-                                </svg>
-                            </div>
-                            <div>
-                                <h3 class="skill-cat-title">Frontend Engineering</h3>
-                                <span class="skill-cat-sub">High-speed reactive web interfaces</span>
-                            </div>
-                        </div>
-                        <div class="skill-items">
-                            <span class="skill-badge"><span class="badge-dot dot-red"></span>React.js</span>
-                            <span class="skill-badge"><span class="badge-dot dot-purple"></span>Vite</span>
-                            <span class="skill-badge"><span class="badge-dot dot-yellow"></span>JavaScript (ES6+)</span>
-                            <span class="skill-badge"><span class="badge-dot dot-red"></span>HTML5</span>
-                            <span class="skill-badge"><span class="badge-dot dot-blue"></span>CSS3 & Flex/Grid</span>
-                            <span class="skill-badge"><span class="badge-dot dot-green"></span>Responsive UI/UX</span>
-                        </div>
-                    </div>
-
-                    <!-- Category 2: Backend & REST APIs -->
-                    <div class="skill-card">
-                        <div class="skill-card-glow"></div>
-                        <div class="skill-card-header">
-                            <div class="skill-cat-icon icon-backend">
-                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
-                                    <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
-                                    <line x1="6" y1="6" x2="6.01" y2="6"></line>
-                                    <line x1="6" y1="18" x2="6.01" y2="18"></line>
-                                </svg>
-                            </div>
-                            <div>
-                                <h3 class="skill-cat-title">Backend & REST APIs</h3>
-                                <span class="skill-cat-sub">Server architecture & routing</span>
-                            </div>
-                        </div>
-                        <div class="skill-items">
-                            <span class="skill-badge"><span class="badge-dot dot-green"></span>Node.js</span>
-                            <span class="skill-badge"><span class="badge-dot dot-yellow"></span>Express.js</span>
-                            <span class="skill-badge"><span class="badge-dot dot-red"></span>RESTful APIs</span>
-                            <span class="skill-badge"><span class="badge-dot dot-purple"></span>API Integration</span>
-                            <span class="skill-badge"><span class="badge-dot dot-green"></span>Middleware</span>
-                        </div>
-                    </div>
-
-                    <!-- Category 3: Databases -->
-                    <div class="skill-card">
-                        <div class="skill-card-glow"></div>
-                        <div class="skill-card-header">
-                            <div class="skill-cat-icon icon-db">
-                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
-                                    <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
-                                    <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
-                                </svg>
-                            </div>
-                            <div>
-                                <h3 class="skill-cat-title">Databases</h3>
-                                <span class="skill-cat-sub">Structure</span>
-                            </div>
-                        </div>
-                        <div class="skill-items">
-                            <span class="skill-badge"><span class="badge-dot dot-green"></span>MongoDB</span>
-                            <span class="skill-badge"><span class="badge-dot dot-yellow"></span>Relational Schemas</span>
-                            <span class="skill-badge"><span class="badge-dot dot-red"></span>Firebase Firestore</span>
-                            <span class="skill-badge"><span class="badge-dot dot-purple"></span>Cloud Storage</span>
-                        </div>
-                    </div>
-
-                    <!-- Category 4: Programming Languages -->
-                    <div class="skill-card">
-                        <div class="skill-card-glow"></div>
-                        <div class="skill-card-header">
-                            <div class="skill-cat-icon icon-code">
-                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <polyline points="16 18 22 12 16 6"></polyline>
-                                    <polyline points="8 6 2 12 8 18"></polyline>
-                                </svg>
-                            </div>
-                            <div>
-                                <h3 class="skill-cat-title">Programming Languages</h3>
-                                <span class="skill-cat-sub">Core languages & problem solving</span>
-                            </div>
-                        </div>
-                        <div class="skill-items">
-                            <span class="skill-badge"><span class="badge-dot dot-yellow"></span>JavaScript (ES6+)</span>
-                            <span class="skill-badge"><span class="badge-dot dot-blue"></span>Python</span>
-                            <span class="skill-badge"><span class="badge-dot dot-red"></span>Java</span>
-                        </div>
-                    </div>
-
-                    <!-- Category 5: Tools & Workflows -->
-                    <div class="skill-card">
-                        <div class="skill-card-glow"></div>
-                        <div class="skill-card-header">
-                            <div class="skill-cat-icon icon-tools">
-                                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path
-                                        d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z">
-                                    </path>
-                                </svg>
-                            </div>
-                            <div>
-                                <h3 class="skill-cat-title">Tools & Workflows</h3>
-                                <span class="skill-cat-sub">Development ecosystems</span>
-                            </div>
-                        </div>
-                        <div class="skill-items">
-                            <span class="skill-badge"><span class="badge-dot dot-red"></span>Git</span>
-                            <span class="skill-badge"><span class="badge-dot dot-white"></span>GitHub</span>
-                            <span class="skill-badge"><span class="badge-dot dot-blue"></span>VS Code</span>
-                            <span class="skill-badge"><span class="badge-dot dot-green"></span>Antigravity IDE</span>
-                            <span class="skill-badge"><span class="badge-dot dot-purple"></span>npm / Vite Build</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ========================================
-             CONTACT SECTION
-             ======================================== -->
-        <section id="contact" class="section contact-section scroll-section">
-            <div class="ambient-glow glow-1"></div>
-            <div class="section-content">
-                <div class="section-header">
-                    <div class="section-tag">
-                        <span class="tag-icon">💬</span>
-                        <span>GET IN TOUCH</span>
-                    </div>
-                    <h2 class="section-title">Let's Build Something Impactful</h2>
-                    <p class="section-subtitle">Have a project, engineering opportunity, or internship opening? Feel free to reach out directly.</p>
-                </div>
-
-                <div class="contact-grid">
-                    <!-- Contact Info Panel -->
-                    <div class="contact-info-panel">
-                        <div class="contact-intro-box">
-                            <h3 class="contact-panel-title">Let's Connect</h3>
-                            <p class="contact-panel-desc">
-                                Whether you're looking for a passionate <strong>Full-Stack Developer</strong> or a dedicated <strong>Software Engineer</strong>, I am actively available for internships and full-time engineering roles.
-                            </p>
-                        </div>
-
-                        <div class="contact-cards-list">
-                            <a href="mailto:muthuselvamm022@gmail.com" class="c-card"
-                                aria-label="Send email to Muthuselvam">
-                                <div class="c-icon-box c-icon-email">
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <path
-                                            d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z">
-                                        </path>
-                                        <polyline points="22,6 12,13 2,6"></polyline>
-                                    </svg>
-                                </div>
-                                <div class="c-details">
-                                    <span class="c-label">Direct Email</span>
-                                    <span class="c-value">muthuselvamm022@gmail.com</span>
-                                </div>
-                                <div class="c-arrow">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                        stroke-width="2">
-                                        <line x1="7" y1="17" x2="17" y2="7"></line>
-                                        <polyline points="7 7 17 7 17 17"></polyline>
-                                    </svg>
-                                </div>
-                            </a>
-
-                            <a href="tel:+919363386350" class="c-card" aria-label="Call or WhatsApp Muthuselvam">
-                                <div class="c-icon-box c-icon-phone">
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <path
-                                            d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
-                                        </path>
-                                    </svg>
-                                </div>
-                                <div class="c-details">
-                                    <span class="c-label">Phone & WhatsApp</span>
-                                    <span class="c-value">+91 9363386350</span>
-                                </div>
-                                <div class="c-arrow">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                        stroke-width="2">
-                                        <line x1="7" y1="17" x2="17" y2="7"></line>
-                                        <polyline points="7 7 17 7 17 17"></polyline>
-                                    </svg>
-                                </div>
-                            </a>
-
-                            <div class="c-card location-card">
-                                <div class="c-icon-box c-icon-location">
-                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                                        <circle cx="12" cy="10" r="3"></circle>
-                                    </svg>
-                                </div>
-                                <div class="c-details">
-                                    <span class="c-label">Location</span>
-                                    <span class="c-value">Tenkasi, Tamil Nadu, India</span>
-                                </div>
-                                <span class="location-badge">Open to Relocation</span>
-                            </div>
-                        </div>
-
-                        <div class="contact-social-strip">
-                            <span class="social-strip-title">Connect on Socials:</span>
-                            <div class="social-pill-group">
-                                <a href="https://www.linkedin.com/in/muthuselvam-k-049112300?utm_source=share_via&utm_content=profile&utm_medium=member_android"
-                                    target="_blank" rel="noopener noreferrer" class="social-pill"
-                                    aria-label="LinkedIn Profile">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                                        <path
-                                            d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
-                                    </svg>
-                                    <span>LinkedIn</span>
-                                </a>
-                                <a href="https://github.com/Muthuselvam1203" target="_blank" rel="noopener noreferrer"
-                                    class="social-pill" aria-label="GitHub Profile">
-                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                                        <path
-                                            d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
-                                    </svg>
-                                    <span>GitHub</span>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Contact Form Panel -->
-                    <div class="contact-form-panel">
-                        <div class="form-glow"></div>
-                        <form id="contactForm" novalidate>
-                            <div class="form-header-box">
-                                <h4>Send a Direct Message</h4>
-                                <span class="form-sub">Replies directly sent to your inbox within 24 hours</span>
-                            </div>
-
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="name">Your Name <span class="req">*</span></label>
-                                    <input type="text" id="name" name="name" placeholder="e.g. John Doe" required
-                                        autocomplete="name">
-                                </div>
-                                <div class="form-group">
-                                    <label for="email">Your Email <span class="req">*</span></label>
-                                    <input type="email" id="email" name="email" placeholder="e.g. john@example.com"
-                                        required autocomplete="email">
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="subject">Subject</label>
-                                <input type="text" id="subject" name="subject"
-                                    placeholder="Project Inquiry / Engineering Opportunity">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="message">Message <span class="req">*</span></label>
-                                <textarea id="message" name="message"
-                                    placeholder="Hi Muthuselvam, I came across your portfolio and would like to discuss..."
-                                    rows="5" required></textarea>
-                            </div>
-
-                            <button type="submit" class="btn btn-primary btn-submit" id="submitBtn">
-                                <span>Send Message</span>
-                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                    stroke-width="2.5">
-                                    <line x1="22" y1="2" x2="11" y2="13"></line>
-                                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-                                </svg>
-                            </button>
-                        </form>
-                        <div id="formMessage" class="form-message"></div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- ========================================
-         FOOTER
-         ======================================== -->
     <footer class="footer">
         <div class="footer-container">
-            <div class="footer-top">
-                <div class="footer-brand">
-                    <a href="#home" class="logo">
-                        <div class="logo-badge">KM</div>
-                        <div class="logo-name">MUTHUSELVAM<span class="logo-dot">.</span></div>
-                    </a>
-                    <p class="footer-tagline">Engineering scalable full-stack web applications, resilient backend architectures, and modern user experiences.</p>
-                </div>
-
-                <div class="footer-links-group">
-                    <span class="footer-links-title">Quick Navigation</span>
-                    <div class="footer-nav">
-                        <a href="#home">Home</a>
-                        <a href="#about">About</a>
-                        <a href="#services">Services</a>
-                        <a href="#experience">Experience</a>
-                        <a href="#projects">Projects</a>
-                        <a href="#skills">Skills</a>
-                        <a href="#contact">Contact</a>
-                    </div>
-                </div>
-
-                <div class="footer-social-col">
-                    <span class="footer-links-title">Connect</span>
-                    <div class="footer-socials">
-                        <a href="https://github.com/Muthuselvam1203" target="_blank" rel="noopener noreferrer"
-                            class="social-icon-btn" aria-label="GitHub Profile">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                                <path
-                                    d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z" />
-                            </svg>
-                        </a>
-                        <a href="https://www.linkedin.com/in/muthuselvam-k-049112300?utm_source=share_via&utm_content=profile&utm_medium=member_android"
-                            target="_blank" rel="noopener noreferrer" class="social-icon-btn"
-                            aria-label="LinkedIn Profile">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                                <path
-                                    d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
-                            </svg>
-                        </a>
-                        <a href="mailto:muthuselvamm022@gmail.com" class="social-icon-btn" aria-label="Direct Email">
-                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z">
-                                </path>
-                                <polyline points="22,6 12,13 2,6"></polyline>
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="footer-bottom-bar">
+            <div class="footer-bottom">
                 <p>&copy; 2026 Muthuselvam K. All rights reserved.</p>
-                <div class="footer-extra">
-                    <span>Engineered with modern web standards</span>
-                    <a href="#home" class="back-to-top-btn" id="backToTopBtn" title="Back to top"
-                        aria-label="Scroll back to top">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2.5">
-                            <polyline points="18 15 12 9 6 15"></polyline>
-                        </svg>
-                    </a>
-                </div>
+                <p>Designed with passion and code</p>
             </div>
         </div>
     </footer>
 
-    <!-- ========================================
-         PROJECT DETAILS MODAL DIALOG
-         ======================================== -->
-    <div class="modal-backdrop" id="projectModal" role="dialog" aria-modal="true" aria-hidden="true">
-        <div class="modal-container">
-            <button class="modal-close-btn" id="closeProjectModalBtn" aria-label="Close modal dialog">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                    <line x1="18" y1="6" x2="6" y2="18"></line>
-                    <line x1="6" y1="6" x2="18" y2="18"></line>
-                </svg>
-            </button>
-            <div class="modal-body" id="projectModalBody">
-                <!-- Dynamically injected via script.js -->
-            </div>
-        </div>
-    </div>
-
-    <!-- ========================================
-         RESUME PREVIEW MODAL DIALOG
-         ======================================== -->
-    <div class="modal-backdrop" id="resumeModal" role="dialog" aria-modal="true" aria-hidden="true">
-        <div class="modal-container resume-modal-container">
-            <button class="modal-close-btn" id="closeResumeModalBtn" aria-label="Close resume modal">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                    <line x1="18" y1="6" x2="6" y2="18"></line>
-                    <line x1="6" y1="6" x2="18" y2="18"></line>
-                </svg>
-            </button>
-            <div class="resume-modal-header">
-                <div class="resume-user-summary">
-                    <div class="resume-avatar-pill">MK</div>
-                    <div>
-                        <h3 class="resume-user-name">MUTHUSELVAM K</h3>
-                        <p class="resume-user-role">Full-Stack Web Developer & Software Engineer</p>
-                    </div>
-                </div>
-                <div class="resume-actions-top">
-                    <button type="button" class="btn btn-primary btn-sm" id="printResumeBtn">
-                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                            stroke-width="2">
-                            <path d="M6 9V2h12v7"></path>
-                            <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
-                            <rect x="6" y="14" width="12" height="8"></rect>
-                        </svg>
-                        <span>Print / Save PDF</span>
-                    </button>
-                </div>
-            </div>
-
-            <div class="resume-content-area" id="resumePrintArea">
-                <!-- Contact & Meta Header -->
-                <div class="resume-section-block resume-header-block">
-                    <div class="resume-contact-inline">
-                        <span>📧 muthuselvamm022@gmail.com</span>
-                        <span>📱 +91 9363386350</span>
-                        <span>📍 Tenkasi, Tamil Nadu, India</span>
-                        <span>🔗 github.com/Muthuselvam1203</span>
-                    </div>
-                </div>
-
-                <!-- Summary -->
-                <div class="resume-section-block">
-                    <h4 class="resume-section-title">Professional Summary</h4>
-                    <p class="resume-section-text">
-                        Dynamic B.Tech Information Technology undergraduate with demonstrable expertise in full-stack
-                        web development (React.js, Node.js, Express.js, MongoDB, SQL). Proven record across 3 industry internships delivering responsive single-page applications,
-                        native Android interfaces, and optimized database pipelines.
-                    </p>
-                </div>
-
-                <!-- Education -->
-                <div class="resume-section-block">
-                    <h4 class="resume-section-title">Education</h4>
-                    <div class="resume-item">
-                        <div class="resume-item-top">
-                            <strong>B.Tech in Information Technology</strong>
-                            <span class="resume-date">2023 — 2027</span>
-                        </div>
-                        <div class="resume-sub">JP College of Engineering • CGPA: 7.85 / 10.0</div>
-                    </div>
-                </div>
-
-                <!-- Internships -->
-                <div class="resume-section-block">
-                    <h4 class="resume-section-title">Internship Experience</h4>
-                    <div class="resume-item">
-                        <div class="resume-item-top">
-                            <strong>Software & Database Engineering Intern — CADD Expert</strong>
-                            <span class="resume-date">July 2026 – Aug 2026</span>
-                        </div>
-                        <ul class="resume-bullets">
-                            <li>Engineered and optimized relational database schemas and complex multi-table SQL queries for performant data retrieval.</li>
-                            <li>Constructed automated Python and SQL data processing pipelines and operational analytics dashboards.</li>
-                        </ul>
-                    </div>
-
-                    <div class="resume-item">
-                        <div class="resume-item-top">
-                            <strong>Android & Mobile Solutions Intern — Vinsup Infotech</strong>
-                            <span class="resume-date">July 2025 – July 2025</span>
-                        </div>
-                        <ul class="resume-bullets">
-                            <li>Constructed mobile user interfaces with XML layouts and integrated application logic in
-                                Java.</li>
-                            <li>Configured Android activity lifecycles and mastered Android Studio debugging workflows.
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div class="resume-item">
-                        <div class="resume-item-top">
-                            <strong>React.js & Full-Stack Web Intern — Campus Connection</strong>
-                            <span class="resume-date">July 2025 – July 2025</span>
-                        </div>
-                        <ul class="resume-bullets">
-                            <li>Built high-speed reactive single-page interfaces with React.js and Vite.</li>
-                            <li>Integrated frontend components with RESTful APIs within the MERN architecture.</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Core Skills -->
-                <div class="resume-section-block">
-                    <h4 class="resume-section-title">Technical Skills</h4>
-                    <p class="resume-skills-list">
-                        <strong>Languages:</strong> JavaScript (ES6+), Python, Java, SQL, C<br>
-                        <strong>Frontend:</strong> React.js, Vite, HTML5, CSS3, Modern CSS Systems, Component Architecture<br>
-                        <strong>Backend & Cloud:</strong> Node.js, Express.js, RESTful APIs, Firebase Auth, Firestore, FCM<br>
-                        <strong>Databases:</strong> MongoDB, SQL (Queries & Relational Schemas), SQLite<br>
-                        <strong>Tools & Workflows:</strong> Git, GitHub, VS Code, Android Studio, Postman, npm
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- ========================================
-         TOAST NOTIFICATION CONTAINER
-         ======================================== -->
-    <div class="toast-container" id="toastContainer" aria-live="polite"></div>
-
-    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script src="email-config.js"></script>
     <script src="script.js"></script>
 </body>
 
 </html>
-
